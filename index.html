@@ -7,104 +7,89 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#07080f;--bg2:#0d0f1a;--bg3:#12152a;--card:#141828;--border:rgba(99,120,255,.15);--border2:rgba(99,120,255,.28);--accent:#6378ff;--accent2:#a855f7;--green:#22d3a3;--yellow:#f59e0b;--red:#f43f5e;--text:#e2e8f0;--text2:#94a3b8;--muted:#475569}
-body{background:var(--bg);color:var(--text);font-family:-apple-system,'Inter',sans-serif;min-height:100vh}
-.bar{background:var(--bg2);border-bottom:1px solid var(--border);height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;position:sticky;top:0;z-index:100}
-.logo{display:flex;align-items:center;gap:10px}
-.logo-ic{width:32px;height:32px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px}
-.logo-name{font-size:14px;font-weight:700}.logo-sub{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px}
-.top-r{display:flex;align-items:center;gap:10px}
-.live{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text2);background:var(--bg3);border:1px solid var(--border);padding:5px 12px;border-radius:20px}
-.dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:blink 2s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-.chip{display:flex;align-items:center;gap:7px;background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:4px 12px 4px 4px;cursor:pointer}
-.av{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff}
-.un{font-size:12px;font-weight:600}.ur{font-size:10px;color:var(--muted)}
+:root{--bg:#07080f;--bg2:#0d0f1a;--bg3:#12152a;--card:#141828;--b:rgba(99,120,255,.15);--b2:rgba(99,120,255,.28);--ac:#6378ff;--ac2:#a855f7;--gr:#22d3a3;--yl:#f59e0b;--rd:#f43f5e;--tx:#e2e8f0;--t2:#94a3b8;--mt:#475569}
+body{background:var(--bg);color:var(--tx);font-family:-apple-system,Inter,sans-serif;min-height:100vh}
+.bar{background:var(--bg2);border-bottom:1px solid var(--b);height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;position:sticky;top:0;z-index:100}
+.lic{width:32px;height:32px;background:linear-gradient(135deg,var(--ac),var(--ac2));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px}
 .btn{padding:7px 16px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all .18s}
-.bp{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}.bp:hover{opacity:.85}
-.bg{background:transparent;border:1.5px solid var(--border);color:var(--text2)}.bg:hover{border-color:var(--accent);color:var(--text)}
+.bp{background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff}.bp:hover{opacity:.85}
+.bg2{background:transparent;border:1.5px solid var(--b);color:var(--t2)}.bg2:hover{border-color:var(--ac);color:var(--tx)}
+.chip{display:flex;align-items:center;gap:7px;background:var(--bg3);border:1px solid var(--b);border-radius:20px;padding:4px 12px 4px 4px;cursor:pointer}
+.av{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff}
 .layout{display:flex;min-height:calc(100vh - 54px)}
-.sb{width:210px;min-width:210px;background:var(--bg2);border-right:1px solid var(--border);padding:16px 0;display:flex;flex-direction:column}
-.main{flex:1;overflow-y:auto}.ct{padding:24px}
-.ns{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);padding:0 14px;margin:14px 0 5px}
-.ni{display:flex;align-items:center;gap:9px;padding:9px 14px;font-size:12px;color:var(--text2);cursor:pointer;border-left:2px solid transparent;transition:all .15s}
-.ni:hover{background:rgba(99,120,255,.06);color:var(--text)}
-.ni.on{background:rgba(99,120,255,.1);color:var(--accent);border-left-color:var(--accent)}
-.ni .ic{font-size:14px;width:18px;text-align:center}
-.nbadge{margin-left:auto;font-size:9px;font-weight:700;padding:1px 6px;border-radius:8px;background:rgba(99,120,255,.2);color:var(--accent)}
-.sbfoot{margin-top:auto;padding:14px;border-top:1px solid var(--border)}
+.sb{width:210px;min-width:210px;background:var(--bg2);border-right:1px solid var(--b);padding:16px 0;display:flex;flex-direction:column}
+.main{flex:1;overflow-y:auto}.cn{padding:24px}
+.ns{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--mt);padding:0 14px;margin:14px 0 5px}
+.ni{display:flex;align-items:center;gap:9px;padding:9px 14px;font-size:12px;color:var(--t2);cursor:pointer;border-left:2px solid transparent;transition:all .15s}
+.ni:hover{background:rgba(99,120,255,.06);color:var(--tx)}.ni.on{background:rgba(99,120,255,.1);color:var(--ac);border-left-color:var(--ac)}
+.nbadge{margin-left:auto;font-size:9px;font-weight:700;padding:1px 6px;border-radius:8px;background:rgba(99,120,255,.2);color:var(--ac)}
+.sbf{margin-top:auto;padding:14px;border-top:1px solid var(--b)}
 .pg{display:none}.pg.on{display:block;animation:fu .22s ease}
 @keyframes fu{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-.krow{display:grid;gap:12px;margin-bottom:22px}
-.k{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;position:relative;overflow:hidden}
+.kr{display:grid;gap:12px;margin-bottom:22px}
+.k{background:var(--card);border:1px solid var(--b);border-radius:12px;padding:14px 16px;position:relative;overflow:hidden}
 .k::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:2px 2px 0 0}
-.k.bl::before{background:var(--accent)}.k.gr::before{background:var(--green)}.k.yl::before{background:var(--yellow)}.k.pu::before{background:var(--accent2)}.k.rd::before{background:var(--red)}
+.k.bl::before{background:var(--ac)}.k.gr::before{background:var(--gr)}.k.yl::before{background:var(--yl)}.k.pu::before{background:var(--ac2)}.k.rd::before{background:var(--rd)}
 .kv{font-size:26px;font-weight:800;letter-spacing:-.5px;line-height:1.1}
-.kl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:5px}
-.card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:18px}
-.ch{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.ct2{font-size:13px;font-weight:700}
-.cb{padding:16px 18px}
+.kl{font-size:10px;color:var(--mt);text-transform:uppercase;letter-spacing:.5px;margin-top:5px}
+.card{background:var(--card);border:1px solid var(--b);border-radius:14px;overflow:hidden;margin-bottom:18px}
+.ch{padding:14px 18px;border-bottom:1px solid var(--b);display:flex;align-items:center;justify-content:space-between}
+.ctit{font-size:13px;font-weight:700}.cb{padding:16px 18px}
 .ph{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:22px;gap:14px}
-.ph h1{font-size:20px;font-weight:800;letter-spacing:-.4px;margin-bottom:3px}
-.ph p{font-size:12px;color:var(--text2)}
-.tc{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:all .2s;cursor:pointer;margin-bottom:10px}
-.tc:hover{border-color:var(--border2);transform:translateY(-1px)}
-.tc.urg{border-left:3px solid var(--red)}.tc.td{border-left:3px solid var(--yellow)}.tc.nm{border-left:3px solid var(--accent)}.tc.dn{border-left:3px solid var(--green);opacity:.7}
-.ti{padding:15px 17px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start}
+.ph h1{font-size:20px;font-weight:800;letter-spacing:-.4px;margin-bottom:3px}.ph p{font-size:12px;color:var(--t2)}
+.tc{background:var(--card);border:1px solid var(--b);border-radius:12px;overflow:hidden;cursor:pointer;margin-bottom:10px;transition:all .2s}
+.tc:hover{border-color:var(--b2);transform:translateY(-1px)}
+.tc.urg{border-left:3px solid var(--rd)}.tc.tdy{border-left:3px solid var(--yl)}.tc.nm{border-left:3px solid var(--ac)}.tc.dn{border-left:3px solid var(--gr);opacity:.7}
+.ti{padding:14px 16px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start}
 .tt{font-size:13px;font-weight:700;margin-bottom:4px}
-.td2{font-size:11px;color:var(--text2);line-height:1.5;margin-bottom:8px}
-.tm{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.mi{font-size:10px;color:var(--muted)}
-.roi-v{font-size:13px;font-weight:700;color:var(--green);text-align:right}
-.roi-l{font-size:9px;color:var(--muted);text-align:right}
-.bdg{font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap;display:inline-flex;align-items:center;gap:3px}
-.bu{background:rgba(244,63,94,.12);color:var(--red)}.bt{background:rgba(245,158,11,.12);color:var(--yellow)}.bn{background:rgba(99,120,255,.12);color:var(--accent)}.bd{background:rgba(34,211,163,.12);color:var(--green)}
+.tdsc{font-size:11px;color:var(--t2);line-height:1.5;margin-bottom:6px}
+.bdg{font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap;display:inline-block}
+.bu{background:rgba(244,63,94,.12);color:var(--rd)}.bt{background:rgba(245,158,11,.12);color:var(--yl)}
+.bnm{background:rgba(99,120,255,.12);color:var(--ac)}.bdn{background:rgba(34,211,163,.12);color:var(--gr)}
 .bai{background:linear-gradient(135deg,rgba(99,120,255,.15),rgba(168,85,247,.15));color:#c084fc;border:1px solid rgba(168,85,247,.2)}
-.bxt{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;padding:8px 14px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap;font-family:inherit}
+.bxt{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff;border:none;padding:8px 14px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap;font-family:inherit}
 .bxt:hover{opacity:.85;transform:translateY(-1px)}.bxt.dn{background:linear-gradient(135deg,#22d3a3,#0ea5e9)}
-.feed-i{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
-.feed-i:last-child{border-bottom:none}
-.fdot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:4px}
-.fdot.gr{background:var(--green);box-shadow:0 0 5px var(--green)}.fdot.bl{background:var(--accent)}
-.ftxt{font-size:12px;line-height:1.5;flex:1}.ftxt strong{font-weight:700;color:var(--text)}.ftime{font-size:10px;color:var(--muted);margin-top:2px}
+.fi{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--b)}.fi:last-child{border-bottom:none}
+.fdot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:4px;background:var(--gr);box-shadow:0 0 5px var(--gr)}
+.ftxt{font-size:12px;line-height:1.5;flex:1}.ftxt strong{font-weight:700;color:var(--tx)}.ftime{font-size:10px;color:var(--mt);margin-top:2px}
 .ov{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(5px);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px}
 .ov.h{display:none}
-.md{background:var(--card);border:1px solid var(--border2);border-radius:16px;width:100%;max-width:540px;max-height:88vh;overflow-y:auto;animation:fu .2s ease}
-.mh{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:12px;position:sticky;top:0;background:var(--card);z-index:5}
-.mt{font-size:17px;font-weight:800;margin-bottom:3px}.ms{font-size:12px;color:var(--text2)}
-.mc{width:26px;height:26px;background:var(--bg3);border:1px solid var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:12px;color:var(--text2);flex-shrink:0}
-.mb{padding:18px 22px}.mf{padding:13px 22px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.md{background:var(--card);border:1px solid var(--b2);border-radius:16px;width:100%;max-width:540px;max-height:88vh;overflow-y:auto;animation:fu .2s ease}
+.mh{padding:18px 22px;border-bottom:1px solid var(--b);display:flex;align-items:flex-start;justify-content:space-between;gap:12px;position:sticky;top:0;background:var(--card);z-index:5}
+.mtit{font-size:17px;font-weight:800;margin-bottom:3px}.msub{font-size:12px;color:var(--t2)}
+.mclose{width:26px;height:26px;background:var(--bg3);border:1px solid var(--b);border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:12px;color:var(--t2);flex-shrink:0}
+.mbody{padding:18px 22px}.mfoot{padding:13px 22px;border-top:1px solid var(--b);display:flex;justify-content:space-between;align-items:center}
 .ig{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
-.ic2{background:var(--bg3);border-radius:8px;padding:10px 13px}
-.il{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}.iv{font-size:14px;font-weight:700}
+.ic{background:var(--bg3);border-radius:8px;padding:10px 13px}
+.il{font-size:10px;color:var(--mt);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}.iv{font-size:14px;font-weight:700}
 .term{background:#000;border-radius:10px;padding:14px;font-family:monospace;font-size:11px;line-height:1.7;margin-bottom:14px;min-height:100px;border:1px solid rgba(99,120,255,.2);overflow-y:auto;max-height:180px}
 .tl{color:#4ade80}.tl.i{color:#94a3b8}.tl.w{color:#fbbf24}.tl.s{color:#22d3a3}.tl.h{color:#818cf8}
 .rb{background:rgba(34,211,163,.06);border:1px solid rgba(34,211,163,.2);border-radius:12px;padding:14px;margin-bottom:14px}
-.rt{font-size:13px;font-weight:700;color:var(--green);margin-bottom:8px}
+.rtit{font-size:13px;font-weight:700;color:var(--gr);margin-bottom:8px}
 .ri{display:flex;align-items:center;gap:7px;font-size:12px;margin-bottom:4px}
-.em{text-align:center;padding:30px;color:var(--muted)}.em .ei{font-size:32px;margin-bottom:8px}.em p{font-size:13px}
-.sp{width:22px;height:22px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 8px}
+.em{text-align:center;padding:30px;color:var(--mt)}.emico{font-size:32px;margin-bottom:8px}.em p{font-size:13px}
+.sp{width:22px;height:22px;border:2px solid var(--b);border-top-color:var(--ac);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 8px}
 @keyframes spin{to{transform:rotate(360deg)}}
 .lw{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
-.lc{background:var(--card);border:1px solid var(--border2);border-radius:16px;padding:32px;width:100%;max-width:460px}
+.lc{background:var(--card);border:1px solid var(--b2);border-radius:16px;padding:32px;width:100%;max-width:460px}
 .rg{display:grid;gap:8px;margin-bottom:18px}
-.rc{background:var(--bg3);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:12px}
-.rc:hover{border-color:rgba(99,120,255,.4)}.rc.sel{border-color:var(--accent);background:rgba(99,120,255,.1)}
+.rc{background:var(--bg3);border:1.5px solid var(--b);border-radius:10px;padding:12px 14px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:12px}
+.rc:hover{border-color:rgba(99,120,255,.4)}.rc.sel{border-color:var(--ac);background:rgba(99,120,255,.1)}
 .rca{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
-.rn{font-size:13px;font-weight:700;margin-bottom:2px}.rd{font-size:11px;color:var(--text2)}
-.rr{margin-left:auto;text-align:right;font-size:11px;color:var(--muted)}
-.rr strong{display:block;font-size:15px;font-weight:800;color:var(--accent)}
+.rn{font-size:13px;font-weight:700;margin-bottom:2px}.rd{font-size:11px;color:var(--t2)}
+.rr{margin-left:auto;text-align:right;font-size:11px;color:var(--mt)}
+.rr strong{display:block;font-size:15px;font-weight:800;color:var(--ac)}
 .two{display:grid;grid-template-columns:1fr 300px;gap:16px;margin-bottom:18px}
 .cwr{height:200px;position:relative}
-.mb2{height:4px;background:var(--bg3);border-radius:3px;overflow:hidden;margin-top:3px}
-.mf2{height:100%;border-radius:3px;transition:width 1s}
-.cl{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:14px}
-.clh{display:grid;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid var(--border)}
-.clh:last-child{border-bottom:none}
-.clh:hover{background:rgba(99,120,255,.04);cursor:pointer}
-::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
-input,select{background:var(--bg3);border:1.5px solid var(--border);border-radius:8px;padding:10px 13px;color:var(--text);font-size:13px;outline:none;font-family:inherit;width:100%}
-input:focus,select:focus{border-color:var(--accent)}select option{background:var(--bg3)}
+.mb{height:4px;background:var(--bg3);border-radius:3px;overflow:hidden;margin-top:3px}
+.mf{height:100%;border-radius:3px;transition:width 1s}
+.clrow{display:grid;align-items:center;gap:10px;padding:11px 16px;border-bottom:1px solid var(--b)}
+.clrow:last-child{border-bottom:none}.clrow:hover{background:rgba(99,120,255,.04);cursor:pointer}
+input,select{background:var(--bg3);border:1.5px solid var(--b);border-radius:8px;padding:10px 13px;color:var(--tx);font-size:13px;outline:none;font-family:inherit;width:100%}
+input:focus,select:focus{border-color:var(--ac)}select option{background:var(--bg3)}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--gr);box-shadow:0 0 6px var(--gr);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:var(--b);border-radius:4px}
 </style>
 </head>
 <body>
@@ -112,332 +97,377 @@ input:focus,select:focus{border-color:var(--accent)}select option{background:var
 <div id="lw" class="lw">
   <div class="lc">
     <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:20px">
-      <div class="logo-ic" style="width:40px;height:40px;font-size:20px">⚡</div>
-      <div><div style="font-size:16px;font-weight:800">AI Corporate OS</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px">Powered by Extella</div></div>
+      <div class="lic" style="width:40px;height:40px;font-size:20px">&#9889;</div>
+      <div><div style="font-size:16px;font-weight:800">AI Corporate OS</div><div style="font-size:10px;color:var(--mt);text-transform:uppercase;letter-spacing:.8px">Powered by Extella</div></div>
     </div>
-    <div id="ls" style="text-align:center;padding:16px;color:var(--text2);font-size:13px"><div class="sp"></div>Подключение к API...</div>
+    <div id="ls2" style="text-align:center;padding:16px;font-size:13px;color:var(--t2)"><div class="sp"></div>Connecting to API...</div>
     <div class="rg" id="rg" style="display:none"></div>
-    <button class="btn bp" style="width:100%;padding:13px;display:none;font-size:14px" id="lb" onclick="doLogin()">⚡ Войти в AI OS →</button>
-    <div style="text-align:center;font-size:10px;color:var(--muted);margin-top:10px" id="au"></div>
+    <button class="btn bp" style="width:100%;padding:13px;display:none;font-size:14px" id="lb" onclick="doLogin()">&#9889; Enter AI OS &rarr;</button>
+    <div style="text-align:center;font-size:10px;color:var(--mt);margin-top:10px" id="auInfo"></div>
   </div>
 </div>
 
 <div id="aw" style="display:none">
 <div class="bar">
-  <div class="logo">
-    <div class="logo-ic">⚡</div>
-    <div><div class="logo-name">AI Corporate OS</div><div class="logo-sub" id="tc2">—</div></div>
+  <div style="display:flex;align-items:center;gap:10px">
+    <div class="lic">&#9889;</div>
+    <div><div style="font-size:14px;font-weight:700">AI Corporate OS</div><div style="font-size:10px;color:var(--mt);text-transform:uppercase;letter-spacing:.8px" id="corp">Live</div></div>
   </div>
-  <div class="top-r">
-    <div class="live"><div class="dot"></div><span id="lc">—</span> агентов</div>
-    <div style="font-size:10px;color:var(--green);font-family:monospace">● Live</div>
-    <div class="chip" onclick="logout()">
-      <div class="av" id="ta" style="background:linear-gradient(135deg,#6378ff,#a855f7)">👤</div>
-      <div><div class="un" id="tn">—</div><div class="ur" id="tr">—</div></div>
+  <div style="display:flex;align-items:center;gap:10px">
+    <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--t2);background:var(--bg3);border:1px solid var(--b);padding:5px 12px;border-radius:20px"><div class="dot"></div><span id="agcnt">&#8212;</span> agents</div>
+    <div style="font-size:10px;color:var(--gr);font-family:monospace">&#9679; Live</div>
+    <div class="chip" onclick="lo()">
+      <div class="av" id="tav" style="background:linear-gradient(135deg,#6378ff,#a855f7)">&#128100;</div>
+      <div><div style="font-size:12px;font-weight:600" id="tnm">&#8212;</div><div style="font-size:10px;color:var(--mt)" id="trl">&#8212;</div></div>
     </div>
   </div>
 </div>
 
 <div class="layout">
 <div class="sb">
-  <div class="ns">Главное</div>
-  <div class="ni on" id="nh" onclick="sp('home',this)"><div class="ic">🏠</div>Рабочий стол</div>
-  <div class="ni" id="ntasks" onclick="sp('tasks',this)"><div class="ic">✅</div>Задачи<span class="nbadge" id="tb">0</span></div>
-  <div class="ni" id="nhist" onclick="sp('hist',this)"><div class="ic">📋</div>История</div>
-  <div class="ns" id="ds" style="display:none">Портфель</div>
-  <div class="ni" id="ndash" onclick="sp('dash',this)" style="display:none"><div class="ic">▦</div>Дашборд</div>
-  <div class="ni" id="ncl" onclick="sp('clients',this)" style="display:none"><div class="ic">🏢</div>Клиенты</div>
-  <div class="ni" id="nag" onclick="sp('agents',this)" style="display:none"><div class="ic">🤖</div>Агенты</div>
-  <div class="sbfoot">
-    <div style="background:var(--bg3);border-radius:10px;padding:11px">
-      <div style="font-size:10px;color:var(--muted);margin-bottom:4px">Backend</div>
-      <div style="font-size:9px;font-family:monospace;color:var(--green)">api-production-788d<br>.up.railway.app</div>
+  <div class="ns">Main</div>
+  <div class="ni on" id="n-home" onclick="sp('home',this)"><span style="width:18px;text-align:center">&#127968;</span>Dashboard</div>
+  <div class="ni" id="n-tasks" onclick="sp('tasks',this)"><span style="width:18px;text-align:center">&#9989;</span>Tasks<span class="nbadge" id="tb">0</span></div>
+  <div class="ni" id="n-hist" onclick="sp('hist',this)"><span style="width:18px;text-align:center">&#128203;</span>History</div>
+  <div class="ns" id="dns" style="display:none">Portfolio</div>
+  <div class="ni" id="n-dash" onclick="sp('dash',this)" style="display:none"><span style="width:18px;text-align:center">&#9638;</span>Analytics</div>
+  <div class="ni" id="n-cls" onclick="sp('clients',this)" style="display:none"><span style="width:18px;text-align:center">&#127970;</span>Clients</div>
+  <div class="ni" id="n-ags" onclick="sp('agents',this)" style="display:none"><span style="width:18px;text-align:center">&#129302;</span>Agents</div>
+  <div class="sbf">
+    <div style="background:var(--bg3);border-radius:10px;padding:10px">
+      <div style="font-size:9px;color:var(--mt);margin-bottom:4px">Backend API</div>
+      <div style="font-size:9px;font-family:monospace;color:var(--gr)" id="apiDisp">connecting...</div>
     </div>
   </div>
 </div>
 
-<div class="main"><div class="ct">
-  <div class="pg on" id="p-home">
-    <div class="ph"><div><h1 id="hg">Добро пожаловать</h1><p id="hs">—</p></div></div>
-    <div class="krow" id="hk" style="grid-template-columns:repeat(4,1fr)"></div>
-    <div id="hc"></div>
-  </div>
-  <div class="pg" id="p-tasks">
-    <div class="ph"><div><h1>Мои задачи</h1><p id="tsub">—</p></div>
-      <div style="display:flex;gap:6px">
-        <button class="btn bp" style="font-size:11px;padding:5px 12px" onclick="ft('all',this)">Все</button>
-        <button class="btn bg" style="font-size:11px;padding:5px 12px" onclick="ft('pending',this)">Активные</button>
-        <button class="btn bg" style="font-size:11px;padding:5px 12px" onclick="ft('done',this)">Выполнены</button>
-      </div>
+<div class="main"><div class="cn">
+
+<div class="pg on" id="p-home">
+  <div class="ph"><div><h1 id="greet">Welcome</h1><p id="hsub">Loading...</p></div></div>
+  <div class="kr" id="hkpis" style="grid-template-columns:repeat(4,1fr)"></div>
+  <div id="hcontent"></div>
+</div>
+
+<div class="pg" id="p-tasks">
+  <div class="ph"><div><h1>My Tasks</h1><p id="tsub">Loading...</p></div>
+    <div style="display:flex;gap:6px">
+      <button class="btn bp" style="font-size:11px;padding:5px 12px" onclick="ra('all',this)">All</button>
+      <button class="btn bg2" style="font-size:11px;padding:5px 12px" onclick="ra('pending',this)">Active</button>
+      <button class="btn bg2" style="font-size:11px;padding:5px 12px" onclick="ra('done',this)">Done</button>
     </div>
-    <div id="ta2"></div>
   </div>
-  <div class="pg" id="p-hist">
-    <div class="ph"><div><h1>История</h1><p>Выполненные задачи</p></div></div>
-    <div id="hl"></div>
+  <div id="tal"></div>
+</div>
+
+<div class="pg" id="p-hist">
+  <div class="ph"><div><h1>History</h1><p>Completed tasks</p></div></div>
+  <div id="hl"></div>
+</div>
+
+<div class="pg" id="p-dash">
+  <div class="ph"><div><h1>Dashboard</h1><p>Live portfolio</p></div><button class="btn bg2" onclick="ld()">&#8634; Refresh</button></div>
+  <div class="kr" id="dkpis" style="grid-template-columns:repeat(5,1fr)"></div>
+  <div class="two">
+    <div class="card"><div class="ch"><div class="ctit">Clients</div><span style="font-size:9px;font-family:monospace;color:var(--gr)">live</span></div><div id="dcl"></div></div>
+    <div class="card"><div class="ch"><div class="ctit">Activity</div></div><div class="cb" id="dfeed" style="padding:12px 16px"></div></div>
   </div>
-  <div class="pg" id="p-dash">
-    <div class="ph"><div><h1>Дашборд</h1><p>Портфель в реальном времени</p></div>
-      <button class="btn bg" onclick="ld()">↺ Обновить</button>
-    </div>
-    <div class="krow" id="dk" style="grid-template-columns:repeat(4,1fr)"></div>
-    <div class="two">
-      <div class="card"><div class="ch"><div class="ct2">Клиенты</div><span style="font-size:9px;font-family:monospace;background:rgba(34,211,163,.08);color:var(--green);border:1px solid rgba(34,211,163,.2);padding:2px 6px;border-radius:4px">live</span></div><div id="dc"></div></div>
-      <div class="card"><div class="ch"><div class="ct2">Активность</div></div><div class="cb" id="df" style="padding:12px 16px"></div></div>
-    </div>
-    <div class="card"><div class="ch"><div class="ct2">ROI по клиентам</div></div><div class="cb"><div class="cwr"><canvas id="rc"></canvas></div></div></div>
-  </div>
-  <div class="pg" id="p-clients">
-    <div class="ph"><div><h1>Клиенты</h1><p id="csub">—</p></div><button class="btn bp" onclick="snc()">+ Новый клиент</button></div>
-    <div id="cl"></div>
-  </div>
-  <div class="pg" id="p-agents">
-    <div class="ph"><div><h1>AI-агенты</h1><p id="asub">—</p></div></div>
-    <div id="al"></div>
-  </div>
+  <div class="card"><div class="ch"><div class="ctit">ROI by Client</div></div><div class="cb"><div class="cwr"><canvas id="rc2"></canvas></div></div></div>
+</div>
+
+<div class="pg" id="p-clients">
+  <div class="ph"><div><h1>Clients</h1><p id="csub">Loading...</p></div><button class="btn bp" onclick="snc()">+ New Client</button></div>
+  <div id="cl2"></div>
+</div>
+
+<div class="pg" id="p-agents">
+  <div class="ph"><div><h1>AI Agents</h1><p id="asub">Loading...</p></div></div>
+  <div id="al2"></div>
+</div>
+
 </div></div>
 </div>
 </div>
 
-<div class="ov h" id="to"><div class="md" id="tm"></div></div>
-<div class="ov h" id="eo"><div class="md" id="em" style="max-width:500px"></div></div>
+<div class="ov h" id="tov"><div class="md" id="tmd"></div></div>
+<div class="ov h" id="eov"><div class="md" id="emd" style="max-width:520px"></div></div>
 <div class="ov h" id="nco">
-<div class="md" style="max-width:420px">
-  <div class="mh"><div class="mt">Новый клиент</div><div class="mc" onclick="cm('nco')">✕</div></div>
-  <div class="mb">
+<div class="md" style="max-width:440px">
+  <div class="mh"><div class="mtit">New Client</div><div class="mclose" onclick="cm('nco')">&#10005;</div></div>
+  <div class="mbody">
     <div style="display:grid;gap:12px">
-      <div><div style="font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px">Название</div><input id="ncn" placeholder="АО Компания"></div>
-      <div><div style="font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px">Отрасль</div>
-        <select id="nci"><option value="mining">Добыча</option><option value="finance">Финансы</option><option value="construction">Строительство</option><option value="gov">Госсектор</option><option value="telecom">Телеком</option></select></div>
-      <div><div style="font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px">Город</div><input id="ncc" placeholder="Алматы"></div>
+      <div><div style="font-size:11px;font-weight:600;color:var(--t2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px">Name</div><input id="ncn" placeholder="Company Ltd"></div>
+      <div><div style="font-size:11px;font-weight:600;color:var(--t2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px">Industry</div>
+        <select id="nci"><option value="mining">Mining</option><option value="finance">Finance</option><option value="construction">Construction</option><option value="gov">Government</option><option value="telecom">Telecom</option></select></div>
+      <div><div style="font-size:11px;font-weight:600;color:var(--t2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px">City</div><input id="ncc" placeholder="Almaty"></div>
     </div>
     <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:16px">
-      <button class="btn bg" onclick="cm('nco')">Отмена</button>
-      <button class="btn bp" onclick="cc()">Создать →</button>
+      <button class="btn bg2" onclick="cm('nco')">Cancel</button>
+      <button class="btn bp" onclick="cc()">Create &rarr;</button>
     </div>
   </div>
 </div>
 </div>
 
 <script>
-const API='https://api-production-788d.up.railway.app';
-const CL=['linear-gradient(135deg,#6378ff,#a855f7)','linear-gradient(135deg,#22d3a3,#0ea5e9)','linear-gradient(135deg,#f59e0b,#ef4444)','linear-gradient(135deg,#8b5cf6,#ec4899)','linear-gradient(135deg,#0ea5e9,#6378ff)'];
-const IC={predictive_maintenance_analysis:'🔧',dispatch_optimizer:'🚛',shift_data_entry:'📊',ml_credit_scoring:'🎯',aml_monitor:'🔍',aml_transaction_monitor:'🔍',retrain_production_forecast:'🤖',generate_strategy_doc:'📋',default:'⚡'};
-let role=null,tasks=[],clients=[],dash=null,eids={},rc=null;
-const ROLES=[
-  {k:'director',n:'Сейткали Н.А.',t:'Генеральный директор',d:'Руководство',a:'👔',c:CL[0],dir:true},
-  {k:'head',n:'Жаксыбеков А.С.',t:'Нач. производства',d:'QazMunayGas',a:'🏭',c:CL[1]},
-  {k:'analyst',n:'Бекова М.Т.',t:'Аналитик данных',d:'QazMunayGas',a:'📊',c:CL[4]},
-  {k:'dispatcher',n:'Омаров Д.Р.',t:'Диспетчер смены',d:'QazMunayGas',a:'🚛',c:'linear-gradient(135deg,#f59e0b,#ef4444)'},
-  {k:'operator',n:'Сатыбалды Е.',t:'Оператор ОФ',d:'QazMunayGas',a:'⚙️',c:'linear-gradient(135deg,#475569,#334155)'},
+const API = 'https://api-production-788d.up.railway.app';
+const CL = ['linear-gradient(135deg,#6378ff,#a855f7)','linear-gradient(135deg,#22d3a3,#0ea5e9)','linear-gradient(135deg,#f59e0b,#ef4444)','linear-gradient(135deg,#8b5cf6,#ec4899)','linear-gradient(135deg,#0ea5e9,#6378ff)'];
+const IC = {predictive_maintenance_analysis:'&#128295;',dispatch_optimizer:'&#128667;',shift_data_entry:'&#128202;',ml_credit_scoring:'&#127919;',aml_monitor:'&#128270;',generate_strategy_doc:'&#128203;',default:'&#9889;'};
+let cur=null,tasks=[],clients=[],empIds={},selKey=null,roiCh=null;
+const ROLES = [
+  {key:'director',name:'Seitkali N.A.',role:'CEO',dept:'Management',av:'&#128084;',col:CL[0],isDir:true},
+  {key:'head',name:'Zhaksybekov A.',role:'Head of Production',dept:'QazMunayGas',av:'&#127981;',col:CL[1],isDir:false},
+  {key:'analyst',name:'Bekova M.',role:'Data Analyst',dept:'QazMunayGas',av:'&#128202;',col:CL[4],isDir:false},
+  {key:'dispatcher',name:'Omarov D.',role:'Shift Dispatcher',dept:'QazMunayGas',av:'&#128667;',col:'linear-gradient(135deg,#f59e0b,#ef4444)',isDir:false},
+  {key:'operator',name:'Satybaldi Y.',role:'Process Operator',dept:'QazMunayGas',av:'&#9881;',col:'linear-gradient(135deg,#475569,#334155)',isDir:false},
 ];
-async function get(p){try{const r=await fetch(API+p);return r.ok?r.json():null}catch{return null}}
-async function post(p,d){try{const r=await fetch(API+p,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});return r.ok?r.json():null}catch{return null}}
+async function g(p){try{const r=await fetch(API+p);return r.ok?r.json():null}catch{return null}}
+async function p(p,d){try{const r=await fetch(API+p,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});return r.ok?r.json():null}catch{return null}}
+
 async function init(){
-  document.getElementById('au').textContent=API.replace('https://','');
-  const h=await get('/api/health');
-  if(!h){document.getElementById('ls').innerHTML='<div style="color:var(--red)">⚠ API недоступен</div>';return}
-  document.getElementById('ls').innerHTML=`<div style="color:var(--green)">✅ Подключено · DB ${h.db?'Online':'Offline'}</div>`;
-  const emps=await get('/api/employees');
-  if(emps?.employees)emps.employees.forEach(e=>{
-    if(e.name.includes('Сейткали'))eids.director=e.id;
-    else if(e.name.includes('Жаксыбеков'))eids.head=e.id;
-    else if(e.name.includes('Бекова'))eids.analyst=e.id;
-    else if(e.name.includes('Омаров'))eids.dispatcher=e.id;
-    else if(e.name.includes('Сатыбалды'))eids.operator=e.id;
+  document.getElementById('auInfo').textContent = API;
+  document.getElementById('apiDisp').textContent = API.replace('https://','').substring(0,30);
+  const h = await g('/api/health');
+  if(!h){document.getElementById('ls2').innerHTML='<div style="color:var(--rd)">&#9888; API unavailable</div>';return}
+  document.getElementById('ls2').innerHTML='<div style="color:var(--gr)">&#10003; Connected &middot; DB:'+h.db+'</div>';
+  const emps = await g('/api/employees');
+  if(emps?.employees) emps.employees.forEach(e=>{
+    if(e.name.includes('Сейткали'))empIds.director=e.id;
+    else if(e.name.includes('Жаксыбеков'))empIds.head=e.id;
+    else if(e.name.includes('Бекова'))empIds.analyst=e.id;
+    else if(e.name.includes('Омаров'))empIds.dispatcher=e.id;
+    else if(e.name.includes('Сатыбалды'))empIds.operator=e.id;
   });
-  document.getElementById('rg').innerHTML=ROLES.map(r=>`
-    <div class="rc" onclick="sr('${r.k}',this)">
-      <div class="rca" style="background:${r.c}">${r.a}</div>
-      <div><div class="rn">${r.n}</div><div class="rd">${r.t} · ${r.d}</div></div>
-      <div class="rr"><strong id="cnt-${r.k}">—</strong>задач</div>
+  document.getElementById('rg').innerHTML = ROLES.map(r=>`
+    <div class="rc" onclick="sr('${r.key}',this)" id="rc-${r.key}">
+      <div class="rca" style="background:${r.col}">${r.av}</div>
+      <div><div class="rn">${r.name}</div><div class="rd">${r.role}</div></div>
+      <div class="rr"><strong id="rc-c-${r.key}">&#8212;</strong>tasks</div>
     </div>`).join('');
   document.getElementById('rg').style.display='grid';
   document.getElementById('lb').style.display='block';
   ROLES.forEach(async r=>{
-    const eid=eids[r.k];
-    const el=document.getElementById('cnt-'+r.k);
-    if(!el)return;
-    if(eid){const t=await get('/api/tasks?employee_id='+eid+'&status=pending');if(t)el.textContent=t.tasks?.length||0;}
-    else if(r.dir){const d=await get('/api/dashboard');if(d&&el)el.textContent=(d.kpis?.tasks_done||0)+'✓';}
+    const el=document.getElementById('rc-c-'+r.key);if(!el)return;
+    if(r.isDir){const d=await g('/api/dashboard');if(d)el.textContent=(d.kpis?.tasks_done||0)+'&#10003;';return}
+    const eid=empIds[r.key];if(!eid){el.textContent='&#8212;';return}
+    const t=await g('/api/tasks?employee_id='+eid+'&status=pending');
+    el.textContent=t?.tasks?.length||0;
   });
 }
-let sk=null;
-function sr(k,el){sk=k;document.querySelectorAll('.rc').forEach(c=>c.classList.remove('sel'));el.classList.add('sel')}
-async function doLogin(){
-  if(!sk){alert('Выберите роль');return}
-  role=ROLES.find(r=>r.k===sk);
-  document.getElementById('lw').style.display='none';
-  document.getElementById('aw').style.display='block';
-  await setup();
-}
-function logout(){sk=null;role=null;tasks=[];document.getElementById('lw').style.display='flex';document.getElementById('aw').style.display='none';document.querySelectorAll('.rc').forEach(c=>c.classList.remove('sel'))}
+
+function sr(k,el){selKey=k;document.querySelectorAll('.rc').forEach(c=>c.classList.remove('sel'));el.classList.add('sel')}
+function doLogin(){if(!selKey){alert('Select a role');return}cur=ROLES.find(r=>r.key===selKey);document.getElementById('lw').style.display='none';document.getElementById('aw').style.display='block';setup()}
+function lo(){selKey=null;cur=null;tasks=[];document.getElementById('lw').style.display='flex';document.getElementById('aw').style.display='none';document.querySelectorAll('.rc').forEach(c=>c.classList.remove('sel'))}
+
 async function setup(){
-  document.getElementById('ta').textContent=role.a;document.getElementById('ta').style.background=role.c;
-  document.getElementById('tn').textContent=role.n.split(' ').slice(0,2).join(' ');
-  document.getElementById('tr').textContent=role.t;document.getElementById('tc2').textContent=role.d;
-  if(role.dir){document.getElementById('ds').style.display='block';['ndash','ncl','nag'].forEach(i=>document.getElementById(i).style.display='flex')}
-  dash=await get('/api/dashboard');
-  document.getElementById('lc').textContent=dash?.kpis?.agents||'—';
+  document.getElementById('tav').innerHTML=cur.av;document.getElementById('tav').style.background=cur.col;
+  document.getElementById('tnm').textContent=cur.name;document.getElementById('trl').textContent=cur.role;
+  document.getElementById('corp').textContent=cur.dept;
+  if(cur.isDir){document.getElementById('dns').style.display='block';['n-dash','n-cls','n-ags'].forEach(id=>document.getElementById(id).style.display='flex')}
+  const d=await g('/api/dashboard');document.getElementById('agcnt').textContent=d?.kpis?.agents||'&#8212;';
   await lt();rh();
 }
+
 async function lt(){
-  if(role.dir){const d=await get('/api/tasks');tasks=d?.tasks||[];}
-  else{const eid=eids[role.k];if(eid){const d=await get('/api/tasks?employee_id='+eid);tasks=d?.tasks||[];}else tasks=[];}
+  if(cur.isDir){const d=await g('/api/tasks');tasks=d?.tasks||[];}
+  else{const eid=empIds[cur.key];tasks=eid?(await g('/api/tasks?employee_id='+eid))?.tasks||[]:[]}
   document.getElementById('tb').textContent=tasks.filter(t=>t.status!=='completed').length||0;
 }
-function gi(t){return IC[t.expert_name]||IC.default}
-function tc(t){
-  const dn=t.status==='completed';
-  const cl=dn?'dn':t.priority==='urgent'?'urg':t.priority==='today'?'td':'nm';
-  const bc=dn?'bd':t.priority==='urgent'?'bu':t.priority==='today'?'bt':'bn';
-  const bt=dn?'✅ Выполнено':t.priority==='urgent'?'🔴 СРОЧНО':t.priority==='today'?'🟡 Сегодня':'📋 Плановая';
-  return`<div class="tc ${cl}" onclick="ot('${t.id}')">
-    <div class="ti">
-      <div>
-        <div style="display:flex;align-items:center;gap:7px;margin-bottom:5px;flex-wrap:wrap">
-          <span style="font-size:18px">${gi(t)}</span>
-          <span class="bdg ${bc}">${bt}</span>
-          <span class="bdg bai">⚡ Extella</span>
-          ${t.employee_name?`<span style="font-size:10px;color:var(--muted)">${t.employee_name}</span>`:''}
-        </div>
-        <div class="tt">${t.title}</div>
-        <div class="td2">${(t.description||'').substring(0,90)}</div>
-        <div class="tm"><div class="mi">📌 ${t.source||'manual'}</div><div class="mi">🤖 ${t.expert_name||'—'}</div></div>
-      </div>
-      <div>
-        <div class="roi-v">${t.roi_estimate||'—'}</div><div class="roi-l">ROI</div>
-        <div style="margin-top:8px">
-          ${!dn?`<button class="bxt" onclick="event.stopPropagation();ot('${t.id}')">⚡ Запустить</button>`:`<button class="bxt dn" onclick="event.stopPropagation()">✓ Готово</button>`}
-        </div>
-      </div>
+
+function gicon(t){return IC[t.expert_name]||IC.default}
+
+function mkCard(t){
+  const dn=t.status==='completed',cl=dn?'dn':t.priority==='urgent'?'urg':t.priority==='today'?'tdy':'nm';
+  const bc=dn?'bdn':t.priority==='urgent'?'bu':t.priority==='today'?'bt':'bnm';
+  const bt=dn?'&#9989; Done':t.priority==='urgent'?'&#128308; URGENT':t.priority==='today'?'&#128993; Today':'&#128203; Normal';
+  return`<div class="tc ${cl}" onclick="ot('${t.id}')"><div class="ti"><div>
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px;flex-wrap:wrap">
+      <span style="font-size:18px">${gicon(t)}</span>
+      <span class="bdg ${bc}">${bt}</span>
+      <span class="bdg bai">&#9889; Extella</span>
+      ${t.employee_name?`<span style="font-size:10px;color:var(--mt)">${t.employee_name}</span>`:''}
     </div>
-  </div>`;
+    <div class="tt">${t.title}</div>
+    <div class="tdsc">${(t.description||'').substring(0,100)}</div>
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <span style="font-size:10px;color:var(--mt)">&#128204; ${t.source||'manual'}</span>
+      <span style="font-size:10px;color:var(--mt)">&#129302; ${t.expert_name||'&#8212;'}</span>
+    </div>
+  </div>
+  <div>
+    <div style="font-size:13px;font-weight:700;color:var(--gr);text-align:right">${t.roi_estimate||'&#8212;'}</div>
+    <div style="font-size:9px;color:var(--mt);text-align:right">ROI</div>
+    <div style="margin-top:8px">
+      ${!dn?`<button class="bxt" onclick="event.stopPropagation();ot('${t.id}')">&#9889; Run</button>`:`<button class="bxt dn">&#10003; Done</button>`}
+    </div>
+  </div>
+  </div></div>`;
 }
+
 function rh(){
-  const h=new Date().getHours();document.getElementById('hg').textContent=(h<12?'Доброе утро':h<18?'Добрый день':'Добрый вечер')+', '+role.n.split(' ')[1]+'!';
-  const pend=tasks.filter(t=>t.status!=='completed');document.getElementById('hs').textContent=role.d+' · '+pend.length+' задач ожидают';
-  let kpis=role.dir&&dash
-    ?[{v:dash.kpis?.clients||0,l:'Клиентов',c:'bl'},{v:dash.kpis?.agents||0,l:'AI-агентов',c:'gr'},{v:'$'+Number(dash.kpis?.roi||0).toLocaleString(),l:'ROI',c:'pu'},{v:dash.kpis?.tasks_done||0,l:'Выполнено',c:'yl'}]
-    :[{v:tasks.length,l:'Задач',c:'bl'},{v:pend.length,l:'Ожидают',c:'yl'},{v:tasks.filter(t=>t.status==='completed').length,l:'Выполнено',c:'gr'},{v:pend.filter(t=>t.priority==='urgent').length,l:'Срочных',c:'rd'}];
-  document.getElementById('hk').innerHTML=kpis.map(k=>`<div class="k ${k.c}"><div class="kv">${k.v}</div><div class="kl">${k.l}</div></div>`).join('');
-  const urg=pend.filter(t=>t.priority==='urgent'),tod=pend.filter(t=>t.priority!=='urgent');
+  const h=new Date().getHours(),gr=h<12?'Good morning':h<18?'Good afternoon':'Good evening';
+  document.getElementById('greet').textContent=gr+', '+cur.name.split(' ')[0]+'!';
+  const pend=tasks.filter(t=>t.status!=='completed');
+  document.getElementById('hsub').textContent=cur.dept+' · '+pend.length+' tasks pending';
+  document.getElementById('hkpis').innerHTML=[
+    {v:tasks.length,l:'Total Tasks',cl:'bl'},{v:pend.length,l:'Pending',cl:'yl'},
+    {v:tasks.filter(t=>t.status==='completed').length,l:'Done',cl:'gr'},
+    {v:pend.filter(t=>t.priority==='urgent').length,l:'Urgent',cl:'rd'}
+  ].map(k=>`<div class="k ${k.cl}"><div class="kv">${k.v}</div><div class="kl">${k.l}</div></div>`).join('');
+  const urg=pend.filter(t=>t.priority==='urgent'),td=pend.filter(t=>t.priority!=='urgent');
   let html='';
-  if(urg.length)html+=`<div style="font-size:14px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px"><span style="width:3px;height:16px;background:var(--red);border-radius:2px;display:inline-block"></span>🔴 Срочные</div>`+urg.slice(0,3).map(tc).join('');
-  if(tod.length)html+=`<div style="font-size:14px;font-weight:700;margin-bottom:12px;margin-top:20px;display:flex;align-items:center;gap:8px"><span style="width:3px;height:16px;background:var(--yellow);border-radius:2px;display:inline-block"></span>🟡 На сегодня</div>`+tod.slice(0,3).map(tc).join('');
-  if(!html)html='<div class="em"><div class="ei">✅</div><p>Нет активных задач</p></div>';
-  document.getElementById('hc').innerHTML=html;
+  if(urg.length)html+=`<div style="font-size:14px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px"><span style="width:3px;height:16px;background:var(--rd);border-radius:2px;display:inline-block"></span>&#128308; Urgent</div>`+urg.slice(0,3).map(mkCard).join('');
+  if(td.length)html+=`<div style="font-size:14px;font-weight:700;margin-bottom:12px;margin-top:20px;display:flex;align-items:center;gap:8px"><span style="width:3px;height:16px;background:var(--yl);border-radius:2px;display:inline-block"></span>&#128993; Today</div>`+td.slice(0,3).map(mkCard).join('');
+  if(!html)html='<div class="em"><div class="emico">&#9989;</div><p>No active tasks!</p></div>';
+  document.getElementById('hcontent').innerHTML=html;
   ra('all');
-  const dn=tasks.filter(t=>t.status==='completed');
-  document.getElementById('hl').innerHTML=dn.length?dn.map(t=>`<div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;margin-bottom:8px"><span style="font-size:18px">✅</span><div style="flex:1"><div style="font-size:13px;font-weight:600">${t.title}</div><div style="font-size:11px;color:var(--text2)">${t.expert_name||'—'}</div></div><div style="font-size:11px;color:var(--green)">✓</div></div>`).join(''):'<div class="em"><div class="ei">📋</div><p>История пуста</p></div>';
+  const done=tasks.filter(t=>t.status==='completed');
+  document.getElementById('hl').innerHTML=done.length?done.map(t=>`
+    <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border:1px solid var(--b);border-radius:10px;margin-bottom:8px">
+      <div style="font-size:18px">&#9989;</div>
+      <div><div style="font-size:13px;font-weight:600">${t.title}</div><div style="font-size:11px;color:var(--t2)">${t.expert_name||'&#8212;'}</div></div>
+      <div style="margin-left:auto;font-size:11px;color:var(--gr)">&#10003;</div>
+    </div>`).join(''):'<div class="em"><div class="emico">&#128203;</div><p>No history yet</p></div>';
 }
-function ra(f){
-  document.getElementById('tsub').textContent=tasks.length+' задач · '+tasks.filter(t=>t.status!=='completed').length+' активных';
-  let list=f==='pending'?tasks.filter(t=>t.status!=='completed'):f==='done'?tasks.filter(t=>t.status==='completed'):tasks;
-  document.getElementById('ta2').innerHTML=list.length?list.map(tc).join(''):'<div class="em"><div class="ei">✅</div><p>Нет задач</p></div>';
+
+function ra(f,btn){
+  document.getElementById('tsub').textContent=tasks.length+' tasks · '+tasks.filter(t=>t.status!=='completed').length+' active';
+  if(btn){document.querySelectorAll('#p-tasks .btn').forEach(b=>b.className='btn bg2');btn.className='btn bp';}
+  const list=f==='all'?tasks:tasks.filter(t=>f==='pending'?t.status!=='completed':t.status==='completed');
+  document.getElementById('tal').innerHTML=list.length?list.map(mkCard).join(''):'<div class="em"><div class="emico">&#9989;</div><p>No tasks</p></div>';
 }
-function ft(f,btn){document.querySelectorAll('.ph .btn').forEach(b=>{b.className='btn bg';b.style.fontSize='11px';b.style.padding='5px 12px'});btn.className='btn bp';btn.style.fontSize='11px';btn.style.padding='5px 12px';ra(f)}
+
+const ES={predictive_maintenance_analysis:[{t:400,c:'i',l:'Loading sensor CSV...'},{t:1100,c:'i',l:'FFT bearing analysis...'},{t:2000,c:'w',l:'&#9888; Anomaly: bearing #3 critical'},{t:3000,c:'i',l:'Failure prediction: 8-12 days'},{t:3800,c:'s',l:'&#10003; Results saved to AI OS...'}],ml_credit_scoring:[{t:400,c:'i',l:'Loading 5,000 applications...'},{t:1300,c:'i',l:'XGBoost scoring 47 features...'},{t:2300,c:'i',l:'Accuracy: 94.2% | AUC: 0.97'},{t:3100,c:'s',l:'&#10003; ROI $82,000 saved to API'}],dispatch_optimizer:[{t:300,c:'i',l:'BelAZ #04 stopped...'},{t:900,c:'i',l:'Recalculating routes (OR)...'},{t:1800,c:'s',l:'&#10003; Routes ready. Loss: 4.2% vs 18%'}],shift_data_entry:[{t:400,c:'i',l:'OCR: reading 24 meters...'},{t:1400,c:'i',l:'Validating data...'},{t:2300,c:'s',l:'&#10003; Report sent. 40 min saved'}],default:[{t:400,c:'i',l:'Initializing...'},{t:1200,c:'i',l:'Processing data...'},{t:2100,c:'s',l:'&#10003; Task completed!'}]};
+const ER={predictive_maintenance_analysis:{t:'Predictive Maintenance',i:['Bearing #3 - critical trend','Maintenance: Apr 25-27','Prevented loss: ~$83,000'],r:83000,m:240,s:'Predictive analysis EKP-12. Bearing #3 critical.'},ml_credit_scoring:{t:'ML Credit Scoring',i:['5,000 apps. Accuracy 94.2%','Auto-decision 78%','Time: 5 days → 4 hours'],r:82000,m:240,s:'ML scoring 5,000 apps. ROI $82,000.'},dispatch_optimizer:{t:'Route Optimization',i:['Loss: 18% → 4.2%','Plan completion: 96%'],r:0,m:60,s:'Routes redistributed. Loss 4.2%.'},shift_data_entry:{t:'Meter Entry',i:['24 instruments logged','Report sent automatically'],r:0,m:40,s:'Shift data entered automatically.'},default:{t:'Task Done',i:['Data processed','Result saved'],r:0,m:30,s:'Task completed.'}};
+
 function ot(id){
   const t=tasks.find(x=>x.id===id);if(!t)return;
   const dn=t.status==='completed';
-  document.getElementById('tm').innerHTML=`
-    <div class="mh">
-      <div><div style="display:flex;align-items:center;gap:7px;margin-bottom:5px"><span style="font-size:18px">${gi(t)}</span><span class="bdg ${dn?'bd':t.priority==='urgent'?'bu':'bt'}">${dn?'✅ Выполнено':t.priority==='urgent'?'🔴 СРОЧНО':'🟡 Сегодня'}</span></div>
-        <div class="mt">${t.title}</div><div class="ms">${t.expert_name||'—'} · ${t.source||'manual'}</div></div>
-      <div class="mc" onclick="cm('to')">✕</div>
-    </div>
-    <div class="mb">
-      <div class="ig">
-        <div class="ic2"><div class="il">ROI</div><div class="iv" style="color:var(--green)">${t.roi_estimate||'—'}</div></div>
-        <div class="ic2"><div class="il">Эксперт</div><div class="iv" style="font-family:monospace;font-size:11px">${t.expert_name||'—'}</div></div>
-        <div class="ic2"><div class="il">Источник</div><div class="iv">${t.source||'manual'}</div></div>
-        <div class="ic2"><div class="il">Приоритет</div><div class="iv">${t.priority==='urgent'?'🔴':t.priority==='today'?'🟡':'📋'} ${t.priority}</div></div>
+  document.getElementById('tmd').innerHTML=`
+    <div class="mh"><div>
+      <div style="display:flex;align-items:center;gap:7px;margin-bottom:5px">
+        <span style="font-size:20px">${gicon(t)}</span>
+        <span class="bdg ${dn?'bdn':t.priority==='urgent'?'bu':'bt'}">${dn?'&#9989; Done':t.priority==='urgent'?'&#128308; URGENT':'&#128993; Today'}</span>
+        <span class="bdg bai">&#9889; Extella</span>
       </div>
-      <div style="font-size:13px;color:var(--text2);line-height:1.65;margin-bottom:14px">${t.description||'Нет описания'}</div>
+      <div class="mtit">${t.title}</div>
+      <div class="msub">${t.expert_name||'&#8212;'} &middot; ${t.source||'manual'}</div>
     </div>
-    <div class="mf">
-      <button class="btn bg" onclick="cm('to')">Закрыть</button>
-      ${!dn?`<button class="bxt" onclick="cm('to');la('${id}')">⚡ Запустить в Extella →</button>`:`<button class="bxt dn">✓ Выполнено</button>`}
+    <div class="mclose" onclick="cm('tov')">&#10005;</div></div>
+    <div class="mbody">
+      <div class="ig">
+        <div class="ic"><div class="il">ROI</div><div class="iv" style="color:var(--gr)">${t.roi_estimate||'&#8212;'}</div></div>
+        <div class="ic"><div class="il">Expert</div><div class="iv" style="font-family:monospace;font-size:11px">${t.expert_name||'&#8212;'}</div></div>
+      </div>
+      <div style="font-size:13px;color:var(--t2);line-height:1.65">${t.description||'No description'}</div>
+    </div>
+    <div class="mfoot">
+      <button class="btn bg2" onclick="cm('tov')">Close</button>
+      ${!dn?`<button class="bxt" onclick="cm('tov');le('${id}')">&#9889; Launch in Extella &rarr;</button>`:`<button class="bxt dn">&#10003; Completed</button>`}
     </div>`;
-  document.getElementById('to').classList.remove('h');
+  document.getElementById('tov').classList.remove('h');
 }
-const SC={predictive_maintenance_analysis:[{t:400,c:'i',l:'Загрузка CSV датчиков...'},{t:1100,c:'i',l:'FFT-анализ вибрации подшипников'},{t:2000,c:'w',l:'⚠ Аномалия: подшипник #3 критический тренд'},{t:3000,c:'i',l:'Прогноз отказа: 8-12 дней'},{t:3800,c:'s',l:'✓ Записываем в AI OS...'}],
-ml_credit_scoring:[{t:400,c:'i',l:'Загрузка 5,000 заявок...'},{t:1200,c:'i',l:'XGBoost скоринг (47 факторов)...'},{t:2200,c:'i',l:'Точность 94.2% | AUC 0.97'},{t:3000,c:'s',l:'✓ ROI $82,000 записан в API'}],
-dispatch_optimizer:[{t:300,c:'i',l:'БелАЗ №04 остановка...'},{t:900,c:'i',l:'OR перерасчёт маршрутов...'},{t:1800,c:'s',l:'✓ Маршруты готовы. Потери 4.2% vs 18%'}],
-shift_data_entry:[{t:400,c:'i',l:'OCR: распознавание показаний...'},{t:1300,c:'i',l:'Валидация 24 приборов...'},{t:2200,c:'s',l:'✓ Рапорт отправлен. Сэкономлено 40 мин.'}],
-default:[{t:400,c:'i',l:'Инициализация...'},{t:1200,c:'i',l:'Обработка данных...'},{t:2000,c:'s',l:'✓ Задача выполнена!'}]};
-const RS={predictive_maintenance_analysis:{t:'Предиктивный анализ ТО',i:['Подшипник #3 — критический тренд','Рекомендовано ТО: 25-27 апреля','Предотвращено: ~$83,000'],r:83000,m:240,s:'Предиктивный анализ ЭКГ-12. Подшипник #3 критический.'},
-ml_credit_scoring:{t:'ML-скоринг кредитов',i:['5,000 заявок. Точность 94.2%','Авто-решение 78% заявок','Срок: 5 дней → 4 часа'],r:82000,m:240,s:'ML-скоринг 5,000 заявок. ROI $82,000.'},
-dispatch_optimizer:{t:'Оптимизация маршрутов',i:['Потери: 18% → 4.2%','7 водителей получат наряды'],r:0,m:60,s:'Маршруты перераспределены. Потери 4.2%.'},
-shift_data_entry:{t:'Ввод показаний',i:['24 прибора внесены автоматически','Рапорт отправлен начальнику'],r:0,m:40,s:'Показания смены внесены автоматически.'},
-default:{t:'Задача выполнена',i:['Данные обработаны','Результат в системе'],r:0,m:30,s:'Задача выполнена.'}};
-async function la(id){
+
+function le(id){
   const t=tasks.find(x=>x.id===id);if(!t)return;
-  document.getElementById('em').innerHTML=`
-    <div class="mh"><div><div class="mt">⚡ Запуск Extella Expert</div><div class="ms" style="font-family:monospace">${t.expert_name||'default'}</div></div><div class="mc" onclick="cm('eo')">✕</div></div>
-    <div class="mb"><div class="term" id="to2"><div class="tl h">▶ Extella AI OS · Live</div></div><div id="er2"></div><div style="text-align:center" id="eb2"><button class="btn bg" style="font-size:11px" onclick="cm('eo')">Отмена</button></div></div>`;
-  document.getElementById('eo').classList.remove('h');
-  const sc=SC[t.expert_name]||SC.default,term=document.getElementById('to2');
-  sc.forEach(({t:d,c,l})=>setTimeout(()=>{const el=document.createElement('div');el.className='tl '+c;el.textContent=l;term.appendChild(el);term.scrollTop=term.scrollHeight;if(c==='s')setTimeout(()=>sr2(id,t),500);},d));
+  document.getElementById('emd').innerHTML=`
+    <div class="mh"><div class="mtit">&#9889; Extella Expert</div><div class="msub" style="font-family:monospace">${t.expert_name||'default'}</div><div class="mclose" onclick="cm('eov')">&#10005;</div></div>
+    <div class="mbody"><div class="term" id="trm"><div class="tl h">&#9658; Extella AI OS &middot; Live</div><div class="tl i">Connecting: ${t.expert_name||'default'}...</div></div><div id="er2"></div><div style="text-align:center" id="ebw"><button class="btn bg2" style="font-size:11px" onclick="cm('eov')">Cancel</button></div></div>`;
+  document.getElementById('eov').classList.remove('h');
+  const sc=ES[t.expert_name]||ES.default,term=document.getElementById('trm');
+  sc.forEach(({t:d,c,l})=>setTimeout(()=>{const el=document.createElement('div');el.className='tl '+c;el.innerHTML=l;term.appendChild(el);term.scrollTop=term.scrollHeight;if(c==='s')setTimeout(()=>er2(id,t),500);},d));
 }
-async function sr2(id,t){
-  const res=RS[t.expert_name]||RS.default;
-  const ar=await post('/api/tasks/'+id+'/complete',{result_summary:res.s,time_saved_minutes:res.m,roi_realized:res.r});
-  const ok=ar?.status==='completed';
+
+async function er2(id,t){
+  const res=ER[t.expert_name]||ER.default;
+  let ok=false;
+  try{const r=await p('/api/tasks/'+id+'/complete',{result_summary:res.s,time_saved_minutes:res.m,roi_realized:res.r});ok=r?.status==='completed';}catch(e){}
   document.getElementById('er2').innerHTML=`
-    <div class="rb"><div class="rt">✅ ${res.t}</div>
-      ${res.i.map(i=>`<div class="ri"><span style="color:var(--green)">✓</span>${i}</div>`).join('')}
-      <div style="margin-top:8px;font-size:11px;color:var(--text2)">⏱ Сэкономлено: ${res.m} мин${res.r>0?' · 💰 $'+res.r.toLocaleString():''}</div>
-      <div style="margin-top:4px;font-size:10px;${ok?'color:var(--green)':'color:var(--yellow)'}">${ok?'✓ Записано в PostgreSQL':'⚠ Выполнено локально'}</div>
+    <div class="rb"><div class="rtit">&#9989; ${res.t}</div>
+      ${res.i.map(i=>`<div class="ri">&#10003; ${i}</div>`).join('')}
+      <div style="margin-top:8px;font-size:11px;color:var(--t2)">&#9201; ${res.m} min saved${res.r>0?' &middot; &#128176; $'+res.r.toLocaleString():''}</div>
+      <div style="margin-top:4px;font-size:10px;color:${ok?'var(--gr)':'var(--yl)'}">${ok?'&#10003; Saved to PostgreSQL (AI OS)':'&#9888; Completed locally'}</div>
     </div>`;
-  document.getElementById('eb2').innerHTML=`<div style="display:flex;gap:10px;justify-content:center"><button class="btn bg" onclick="cm('eo')">Закрыть</button><button class="bxt dn" onclick="md2('${id}')">✓ Отметить выполненным</button></div>`;
+  document.getElementById('ebw').innerHTML=`<div style="display:flex;gap:10px;justify-content:center"><button class="btn bg2" onclick="cm('eov')">Close</button><button class="bxt dn" onclick="mkdn('${id}')">&#10003; Mark Done</button></div>`;
   await lt();
 }
-async function md2(id){
+
+async function mkdn(id){
   const i=tasks.findIndex(t=>t.id===id);if(i>=0)tasks[i].status='completed';
   document.getElementById('tb').textContent=tasks.filter(t=>t.status!=='completed').length||0;
-  cm('eo');ra('all');rh();sp('tasks',document.getElementById('ntasks'));
+  cm('eov');ra('all');rh();sp('tasks',document.getElementById('n-tasks'));
 }
+
 async function ld(){
-  document.getElementById('dk').innerHTML='<div style="padding:20px;color:var(--text2);text-align:center"><div class="sp"></div>Загрузка...</div>';
-  dash=await get('/api/dashboard');const cl=await get('/api/clients');clients=cl?.clients||[];
-  if(!dash){document.getElementById('dk').innerHTML='<div style="color:var(--red);padding:12px">Ошибка API</div>';return}
-  const kpis=[{v:dash.kpis?.clients||0,l:'Клиентов',c:'bl'},{v:dash.kpis?.agents||0,l:'AI-агентов',c:'gr'},{v:'$'+Number(dash.kpis?.roi||0).toLocaleString(),l:'ROI',c:'pu'},{v:dash.kpis?.tasks_done||0,l:'Выполнено',c:'yl'}];
-  document.getElementById('dk').innerHTML=kpis.map(k=>`<div class="k ${k.c}"><div class="kv">${k.v}</div><div class="kl">${k.l}</div></div>`).join('');
-  document.getElementById('dc').innerHTML=clients.length?clients.map((c,i)=>{
+  document.getElementById('dkpis').innerHTML='<div style="padding:16px;text-align:center"><div class="sp"></div></div>';
+  const d=await g('/api/dashboard');const cl=await g('/api/clients');clients=cl?.clients||[];
+  if(!d)return;
+  document.getElementById('dkpis').innerHTML=[
+    {v:d.kpis?.clients||0,l:'Clients',cl:'bl'},{v:d.kpis?.agents||0,l:'AI Agents',cl:'gr'},
+    {v:'$'+Number(d.kpis?.roi||0).toLocaleString(),l:'Total ROI',cl:'pu'},{v:d.kpis?.tasks_done||0,l:'Tasks Done',cl:'yl'},
+    {v:clients.length,l:'Portfolio',cl:'bl'}
+  ].map(k=>`<div class="k ${k.cl}"><div class="kv">${k.v}</div><div class="kl">${k.l}</div></div>`).join('');
+  document.getElementById('dcl').innerHTML=clients.length?clients.map((c,i)=>{
     const pct=c.progress_pct||(c.tasks_total>0?Math.round(c.tasks_done/c.tasks_total*100):0);
-    return`<div class="clh" style="grid-template-columns:26px 1fr 50px 55px">
-      <div style="width:24px;height:24px;border-radius:5px;background:${CL[i%CL.length]};display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff">${c.name.charAt(0)}</div>
-      <div><div style="font-size:12px;font-weight:700">${c.name}</div><div class="mb2"><div class="mf2" style="width:${pct}%;background:${pct>70?'var(--green)':pct>40?'var(--accent)':'var(--red)'}"></div></div></div>
-      <div style="font-size:12px;font-weight:700;color:${pct>70?'var(--green)':pct>40?'var(--yellow)':'var(--red)'}">${pct}%</div>
-      <div style="font-size:12px;font-weight:700;color:var(--green)">$${Number(c.roi_realized||c.roi_sum||0).toLocaleString()}</div>
-    </div>`;}).join(''):'<div class="em" style="padding:20px"><p>Нет клиентов</p></div>';
-  const act=dash.activity||[];
-  document.getElementById('df').innerHTML=act.length?act.slice(0,7).map(a=>`<div class="feed-i"><div class="fdot gr"></div><div><div class="ftxt"><strong>${a.client_name||'—'}</strong> · ${a.employee_name||'—'}: ${a.title||'—'}</div><div class="ftime">${a.roi_realized>0?'💰 $'+Number(a.roi_realized).toLocaleString():'Завершено'}</div></div></div>`).join(''):'<div class="em" style="padding:20px"><p>Нет активности</p></div>';
-  if(rc)rc.destroy();
-  const ctx=document.getElementById('rc');
-  if(ctx)rc=new Chart(ctx,{type:'bar',data:{labels:clients.map(c=>c.name.split(' ')[0]),datasets:[{label:'ROI',data:clients.map(c=>Number(c.roi_realized||c.roi_sum||0)),backgroundColor:'rgba(99,120,255,.7)',borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'$'+c.raw.toLocaleString()}}},scales:{x:{grid:{color:'rgba(99,120,255,.08)'},ticks:{color:'var(--muted)',font:{size:10}}},y:{grid:{color:'rgba(99,120,255,.08)'},ticks:{color:'var(--muted)',font:{size:10},callback:v=>'$'+v.toLocaleString()}}}}});
+    return`<div class="clrow" style="grid-template-columns:26px 1fr 50px 60px">
+      <div style="width:24px;height:24px;border-radius:5px;background:${CL[i%5]};display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff">${c.name.charAt(0)}</div>
+      <div><div style="font-size:12px;font-weight:700">${c.name}</div><div class="mb"><div class="mf" style="width:${pct}%;background:${pct>70?'var(--gr)':pct>40?'var(--ac)':'var(--rd)'}"></div></div></div>
+      <div style="font-size:12px;font-weight:700;color:${pct>70?'var(--gr)':pct>40?'var(--yl)':'var(--rd)'}">${pct}%</div>
+      <div style="font-size:12px;font-weight:700;color:var(--gr)">$${Number(c.roi_realized||0).toLocaleString()}</div>
+    </div>`;}).join(''):'<div class="em" style="padding:20px"><p>No clients</p></div>';
+  const act=d.activity||[];
+  document.getElementById('dfeed').innerHTML=act.length?act.slice(0,8).map(a=>`
+    <div class="fi"><div class="fdot"></div><div>
+      <div class="ftxt"><strong>${a.client_name}</strong> &middot; ${a.employee_name}: ${a.title||a.expert_name}</div>
+      <div class="ftime">${a.roi_realized>0?'&#128176; $'+Number(a.roi_realized).toLocaleString():'Completed'}</div>
+    </div></div>`).join(''):'<div class="em" style="padding:20px"><p>Complete tasks to see activity</p></div>';
+  if(roiCh)roiCh.destroy();
+  const ctx=document.getElementById('rc2');
+  if(ctx&&clients.length)roiCh=new Chart(ctx,{type:'bar',data:{labels:clients.map(c=>c.name.split(' ')[0]),datasets:[{label:'ROI',data:clients.map(c=>Number(c.roi_realized||0)),backgroundColor:'rgba(99,120,255,.7)',borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'$'+c.raw.toLocaleString()}}},scales:{x:{grid:{color:'rgba(99,120,255,.08)'},ticks:{color:'var(--mt)',font:{size:10}}},y:{grid:{color:'rgba(99,120,255,.08)'},ticks:{color:'var(--mt)',font:{size:10},callback:v=>'$'+v.toLocaleString()}}}}});
 }
+
 async function lcl(){
-  const d=await get('/api/clients');clients=d?.clients||[];
-  document.getElementById('csub').textContent=clients.length+' компаний · Live';
-  document.getElementById('cl').innerHTML=clients.length?`<div class="cl">${clients.map((c,i)=>{const pct=c.progress_pct||(c.tasks_total>0?Math.round(c.tasks_done/c.tasks_total*100):0);const sc=pct>70?'bd':pct>20?'bt':'bn';const st=pct>70?'● Активен':pct>20?'◑ Пилот':'○ Настройка';return`<div class="clh" style="grid-template-columns:26px 1fr 70px 60px 70px 65px"><div style="width:24px;height:24px;border-radius:5px;background:${CL[i%CL.length]};display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff">${c.name.charAt(0)}</div><div><div style="font-size:12px;font-weight:700">${c.name}</div><div style="font-size:10px;color:var(--text2)">${c.industry||'—'} · ${c.city||'—'}</div></div><span class="bdg ${sc}">${st}</span><div style="font-size:13px;font-weight:700">${c.agents_count||0}</div><div><div style="font-size:11px;font-weight:700;color:${pct>70?'var(--green)':pct>40?'var(--yellow)':'var(--red)'}">${pct}%</div><div class="mb2"><div class="mf2" style="width:${pct}%;background:${pct>70?'var(--green)':pct>40?'var(--accent)':'var(--red)'}"></div></div></div><div style="font-size:13px;font-weight:700;color:${(c.roi_realized||c.roi_sum)>0?'var(--green)':'var(--muted)'}">$${Number(c.roi_realized||c.roi_sum||0).toLocaleString()}</div></div>`;}).join('')}</div>`:'<div class="em"><div class="ei">🏢</div><p>Нет клиентов</p></div>';
+  const d=await g('/api/clients');clients=d?.clients||[];
+  document.getElementById('csub').textContent=clients.length+' companies &middot; Live';
+  document.getElementById('cl2').innerHTML=clients.length?`<div style="background:var(--card);border:1px solid var(--b);border-radius:14px;overflow:hidden">
+    ${clients.map((c,i)=>{
+      const pct=c.progress_pct||(c.tasks_total>0?Math.round(c.tasks_done/c.tasks_total*100):0);
+      const sc=pct>70?'bdn':pct>20?'bt':'bnm',st=pct>70?'&#9679; Active':pct>20?'&#9680; Pilot':'&#9675; Setup';
+      return`<div class="clrow" style="grid-template-columns:26px 1fr 70px 60px 60px 60px;cursor:pointer" onmouseover="this.style.background='rgba(99,120,255,.04)'" onmouseout="this.style.background=''">
+        <div style="width:24px;height:24px;border-radius:5px;background:${CL[i%5]};display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff">${c.name.charAt(0)}</div>
+        <div><div style="font-size:12px;font-weight:700">${c.name}</div><div style="font-size:10px;color:var(--t2)">${c.industry||'&#8212;'} &middot; ${c.city||'&#8212;'}</div></div>
+        <span class="bdg ${sc}">${st}</span>
+        <div style="font-size:12px;font-weight:700">${c.agents_count||0}</div>
+        <div><div style="font-size:11px;font-weight:700;color:${pct>70?'var(--gr)':pct>40?'var(--yl)':'var(--rd)'}">${pct}%</div><div class="mb"><div class="mf" style="width:${pct}%;background:${pct>70?'var(--gr)':pct>40?'var(--ac)':'var(--rd)'}"></div></div></div>
+        <div style="font-size:12px;font-weight:700;color:${c.roi_realized>0?'var(--gr)':'var(--mt)'}">$${Number(c.roi_realized||0).toLocaleString()}</div>
+      </div>`;}).join('')}</div>`
+  :'<div class="em"><div class="emico">&#127970;</div><p>No clients</p></div>';
 }
+
 async function lag(){
-  const d=await get('/api/agents');const ags=d?.agents||[];
-  document.getElementById('asub').textContent=ags.length+' агентов';
-  document.getElementById('al').innerHTML=ags.length?`<div class="cl">${ags.map(a=>`<div class="clh" style="grid-template-columns:26px 1fr 80px 60px"><div style="width:24px;height:24px;border-radius:5px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:12px">⚡</div><div><div style="font-size:12px;font-weight:600;font-family:monospace">${a.name}</div><div style="font-size:10px;color:var(--text2)">${a.description||'—'}</div></div><span class="bdg bd">${a.category||'—'}</span><div style="font-size:13px;font-weight:700">${a.runs_total||0}</div></div>`).join('')}</div>`:'<div class="em"><div class="ei">🤖</div><p>Нет агентов</p></div>';
+  const d=await g('/api/agents');const ags=d?.agents||[];
+  document.getElementById('asub').textContent=ags.length+' agents registered';
+  document.getElementById('al2').innerHTML=ags.length?`<div style="background:var(--card);border:1px solid var(--b);border-radius:14px;overflow:hidden">
+    ${ags.map(a=>`<div class="clrow" style="grid-template-columns:26px 1fr 80px 60px">
+      <div style="width:24px;height:24px;border-radius:5px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:12px">&#9889;</div>
+      <div><div style="font-size:12px;font-weight:600;font-family:monospace">${a.name}</div><div style="font-size:10px;color:var(--t2)">${a.description||'&#8212;'}</div></div>
+      <span class="bdg bdn">${a.category||'&#8212;'}</span>
+      <div style="font-size:13px;font-weight:700">${a.runs_total||0}</div>
+    </div>`).join('')}</div>`
+  :'<div class="em"><div class="emico">&#129302;</div><p>No agents</p></div>';
 }
+
 async function cc(){
-  const name=document.getElementById('ncn').value.trim();const ind=document.getElementById('nci').value;const city=document.getElementById('ncc').value.trim();
-  if(!name){alert('Введите название');return}
-  const r=await post('/api/clients',{name,industry:ind,city,employees_total:0,contract_value:''});
-  if(r?.id){cm('nco');await lcl();alert('✅ Клиент "'+name+'" создан!');}else alert('Ошибка');
+  const name=document.getElementById('ncn').value.trim(),ind=document.getElementById('nci').value,city=document.getElementById('ncc').value.trim();
+  if(!name){alert('Enter name');return}
+  const r=await p('/api/clients',{name,industry:ind,city,employees_total:0,contract_value:''});
+  if(r?.id){cm('nco');await lcl();alert('Client "'+name+'" created!\nID: '+r.id);}else alert('Error creating client');
 }
+
 function sp(id,el){
   document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.ni').forEach(n=>n.classList.remove('on'));
-  const p=document.getElementById('p-'+id);if(p)p.classList.add('on');
+  const pg=document.getElementById('p-'+id);if(pg)pg.classList.add('on');
   if(el)el.classList.add('on');
   document.querySelector('.main').scrollTop=0;
   if(id==='dash')ld();if(id==='clients')lcl();if(id==='agents')lag();if(id==='tasks')ra('all');
