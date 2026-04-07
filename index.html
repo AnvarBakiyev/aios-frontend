@@ -1,480 +1,120 @@
 <!DOCTYPE html>
-<html lang="ru">
-<head>
+<html lang="ru"><head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Corporate OS — Extella</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#07080f;--bg2:#0d0f1a;--bg3:#12152a;--card:#141828;--b:rgba(99,120,255,.15);--b2:rgba(99,120,255,.28);--ac:#6378ff;--ac2:#a855f7;--gr:#22d3a3;--yl:#f59e0b;--rd:#f43f5e;--tx:#e2e8f0;--t2:#94a3b8;--mt:#475569}
-body{background:var(--bg);color:var(--tx);font-family:-apple-system,Inter,sans-serif;min-height:100vh}
-.bar{background:var(--bg2);border-bottom:1px solid var(--b);height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;position:sticky;top:0;z-index:100}
-.lic{width:32px;height:32px;background:linear-gradient(135deg,var(--ac),var(--ac2));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px}
-.btn{padding:7px 16px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all .18s}
-.bp{background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff}.bp:hover{opacity:.85}
-.bg2{background:transparent;border:1.5px solid var(--b);color:var(--t2)}.bg2:hover{border-color:var(--ac);color:var(--tx)}
-.chip{display:flex;align-items:center;gap:7px;background:var(--bg3);border:1px solid var(--b);border-radius:20px;padding:4px 12px 4px 4px;cursor:pointer}
-.av{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff}
-.layout{display:flex;min-height:calc(100vh - 54px)}
-.sb{width:210px;min-width:210px;background:var(--bg2);border-right:1px solid var(--b);padding:16px 0;display:flex;flex-direction:column}
-.main{flex:1;overflow-y:auto}.cn{padding:24px}
-.ns{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--mt);padding:0 14px;margin:14px 0 5px}
-.ni{display:flex;align-items:center;gap:9px;padding:9px 14px;font-size:12px;color:var(--t2);cursor:pointer;border-left:2px solid transparent;transition:all .15s}
-.ni:hover{background:rgba(99,120,255,.06);color:var(--tx)}.ni.on{background:rgba(99,120,255,.1);color:var(--ac);border-left-color:var(--ac)}
-.nbadge{margin-left:auto;font-size:9px;font-weight:700;padding:1px 6px;border-radius:8px;background:rgba(99,120,255,.2);color:var(--ac)}
-.sbf{margin-top:auto;padding:14px;border-top:1px solid var(--b)}
-.pg{display:none}.pg.on{display:block;animation:fu .22s ease}
-@keyframes fu{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-.kr{display:grid;gap:12px;margin-bottom:22px}
-.k{background:var(--card);border:1px solid var(--b);border-radius:12px;padding:14px 16px;position:relative;overflow:hidden}
-.k::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:2px 2px 0 0}
-.k.bl::before{background:var(--ac)}.k.gr::before{background:var(--gr)}.k.yl::before{background:var(--yl)}.k.pu::before{background:var(--ac2)}.k.rd::before{background:var(--rd)}
-.kv{font-size:26px;font-weight:800;letter-spacing:-.5px;line-height:1.1}
-.kl{font-size:10px;color:var(--mt);text-transform:uppercase;letter-spacing:.5px;margin-top:5px}
-.card{background:var(--card);border:1px solid var(--b);border-radius:14px;overflow:hidden;margin-bottom:18px}
-.ch{padding:14px 18px;border-bottom:1px solid var(--b);display:flex;align-items:center;justify-content:space-between}
-.ctit{font-size:13px;font-weight:700}.cb{padding:16px 18px}
-.ph{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:22px;gap:14px}
-.ph h1{font-size:20px;font-weight:800;letter-spacing:-.4px;margin-bottom:3px}.ph p{font-size:12px;color:var(--t2)}
-.tc{background:var(--card);border:1px solid var(--b);border-radius:12px;overflow:hidden;cursor:pointer;margin-bottom:10px;transition:all .2s}
-.tc:hover{border-color:var(--b2);transform:translateY(-1px)}
-.tc.urg{border-left:3px solid var(--rd)}.tc.tdy{border-left:3px solid var(--yl)}.tc.nm{border-left:3px solid var(--ac)}.tc.dn{border-left:3px solid var(--gr);opacity:.7}
-.ti{padding:14px 16px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start}
-.tt{font-size:13px;font-weight:700;margin-bottom:4px}
-.tdsc{font-size:11px;color:var(--t2);line-height:1.5;margin-bottom:6px}
-.bdg{font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap;display:inline-block}
-.bu{background:rgba(244,63,94,.12);color:var(--rd)}.bt{background:rgba(245,158,11,.12);color:var(--yl)}
-.bnm{background:rgba(99,120,255,.12);color:var(--ac)}.bdn{background:rgba(34,211,163,.12);color:var(--gr)}
-.bai{background:linear-gradient(135deg,rgba(99,120,255,.15),rgba(168,85,247,.15));color:#c084fc;border:1px solid rgba(168,85,247,.2)}
-.bxt{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff;border:none;padding:8px 14px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap;font-family:inherit}
-.bxt:hover{opacity:.85;transform:translateY(-1px)}.bxt.dn{background:linear-gradient(135deg,#22d3a3,#0ea5e9)}
-.fi{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--b)}.fi:last-child{border-bottom:none}
-.fdot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:4px;background:var(--gr);box-shadow:0 0 5px var(--gr)}
-.ftxt{font-size:12px;line-height:1.5;flex:1}.ftxt strong{font-weight:700;color:var(--tx)}.ftime{font-size:10px;color:var(--mt);margin-top:2px}
-.ov{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(5px);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px}
-.ov.h{display:none}
-.md{background:var(--card);border:1px solid var(--b2);border-radius:16px;width:100%;max-width:540px;max-height:88vh;overflow-y:auto;animation:fu .2s ease}
-.mh{padding:18px 22px;border-bottom:1px solid var(--b);display:flex;align-items:flex-start;justify-content:space-between;gap:12px;position:sticky;top:0;background:var(--card);z-index:5}
-.mtit{font-size:17px;font-weight:800;margin-bottom:3px}.msub{font-size:12px;color:var(--t2)}
-.mclose{width:26px;height:26px;background:var(--bg3);border:1px solid var(--b);border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:12px;color:var(--t2);flex-shrink:0}
-.mbody{padding:18px 22px}.mfoot{padding:13px 22px;border-top:1px solid var(--b);display:flex;justify-content:space-between;align-items:center}
-.ig{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
-.ic{background:var(--bg3);border-radius:8px;padding:10px 13px}
-.il{font-size:10px;color:var(--mt);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}.iv{font-size:14px;font-weight:700}
-.term{background:#000;border-radius:10px;padding:14px;font-family:monospace;font-size:11px;line-height:1.7;margin-bottom:14px;min-height:100px;border:1px solid rgba(99,120,255,.2);overflow-y:auto;max-height:180px}
-.tl{color:#4ade80}.tl.i{color:#94a3b8}.tl.w{color:#fbbf24}.tl.s{color:#22d3a3}.tl.h{color:#818cf8}
-.rb{background:rgba(34,211,163,.06);border:1px solid rgba(34,211,163,.2);border-radius:12px;padding:14px;margin-bottom:14px}
-.rtit{font-size:13px;font-weight:700;color:var(--gr);margin-bottom:8px}
-.ri{display:flex;align-items:center;gap:7px;font-size:12px;margin-bottom:4px}
-.em{text-align:center;padding:30px;color:var(--mt)}.emico{font-size:32px;margin-bottom:8px}.em p{font-size:13px}
-.sp{width:22px;height:22px;border:2px solid var(--b);border-top-color:var(--ac);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 8px}
-@keyframes spin{to{transform:rotate(360deg)}}
-.lw{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
-.lc{background:var(--card);border:1px solid var(--b2);border-radius:16px;padding:32px;width:100%;max-width:460px}
-.rg{display:grid;gap:8px;margin-bottom:18px}
-.rc{background:var(--bg3);border:1.5px solid var(--b);border-radius:10px;padding:12px 14px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:12px}
-.rc:hover{border-color:rgba(99,120,255,.4)}.rc.sel{border-color:var(--ac);background:rgba(99,120,255,.1)}
-.rca{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
-.rn{font-size:13px;font-weight:700;margin-bottom:2px}.rd{font-size:11px;color:var(--t2)}
-.rr{margin-left:auto;text-align:right;font-size:11px;color:var(--mt)}
-.rr strong{display:block;font-size:15px;font-weight:800;color:var(--ac)}
-.two{display:grid;grid-template-columns:1fr 300px;gap:16px;margin-bottom:18px}
-.cwr{height:200px;position:relative}
-.mb{height:4px;background:var(--bg3);border-radius:3px;overflow:hidden;margin-top:3px}
-.mf{height:100%;border-radius:3px;transition:width 1s}
-.clrow{display:grid;align-items:center;gap:10px;padding:11px 16px;border-bottom:1px solid var(--b)}
-.clrow:last-child{border-bottom:none}.clrow:hover{background:rgba(99,120,255,.04);cursor:pointer}
-input,select{background:var(--bg3);border:1.5px solid var(--b);border-radius:8px;padding:10px 13px;color:var(--tx);font-size:13px;outline:none;font-family:inherit;width:100%}
-input:focus,select:focus{border-color:var(--ac)}select option{background:var(--bg3)}
-.dot{width:6px;height:6px;border-radius:50%;background:var(--gr);box-shadow:0 0 6px var(--gr);animation:blink 2s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:var(--b);border-radius:4px}
-</style>
-</head>
-<body>
-
-<div id="lw" class="lw">
-  <div class="lc">
-    <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:20px">
-      <div class="lic" style="width:40px;height:40px;font-size:20px">&#9889;</div>
-      <div><div style="font-size:16px;font-weight:800">AI Corporate OS</div><div style="font-size:10px;color:var(--mt);text-transform:uppercase;letter-spacing:.8px">Powered by Extella</div></div>
-    </div>
-    <div id="ls2" style="text-align:center;padding:16px;font-size:13px;color:var(--t2)"><div class="sp"></div>Connecting to API...</div>
-    <div class="rg" id="rg" style="display:none"></div>
-    <button class="btn bp" style="width:100%;padding:13px;display:none;font-size:14px" id="lb" onclick="doLogin()">&#9889; Enter AI OS &rarr;</button>
-    <div style="text-align:center;font-size:10px;color:var(--mt);margin-top:10px" id="auInfo"></div>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AI Corporate OS &#9889;</title>
+<style>*{margin:0;padding:0;box-sizing:border-box}:root{--bg:#07080f;--bg2:#0d0f1a;--bg3:#12152a;--card:#141828;--b:rgba(99,120,255,.15);--b2:rgba(99,120,255,.3);--ac:#6378ff;--ac2:#a855f7;--gr:#22d3a3;--yl:#f59e0b;--rd:#f43f5e;--tx:#e2e8f0;--t2:#94a3b8;--mt:#475569}body{background:var(--bg);color:var(--tx);font-family:-apple-system,Inter,sans-serif;min-height:100vh}.screen{display:none;min-height:100vh}.screen.on{display:flex;flex-direction:column}.welcome-wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px}.welcome-card{max-width:540px;width:100%;text-align:center}.logo-big{width:68px;height:68px;background:linear-gradient(135deg,var(--ac),var(--ac2));border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 24px;box-shadow:0 12px 40px rgba(99,120,255,.3)}.w-title{font-size:30px;font-weight:900;letter-spacing:-.7px;line-height:1.2;margin-bottom:12px}.w-hl{background:linear-gradient(135deg,var(--ac),var(--ac2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}.w-sub{font-size:14px;color:var(--t2);line-height:1.7;margin-bottom:28px;max-width:420px;margin-left:auto;margin-right:auto}.w-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px}.w-stat{background:var(--card);border:1px solid var(--b);border-radius:12px;padding:14px;text-align:center}.w-stat-v{font-size:22px;font-weight:800;color:var(--ac)}.w-stat-l{font-size:10px;color:var(--mt);margin-top:4px}.setup-wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px}.setup-card{max-width:600px;width:100%;background:var(--card);border:1px solid var(--b2);border-radius:20px;padding:32px}.pb{height:3px;background:var(--bg3);border-radius:2px;margin-bottom:26px;overflow:hidden}.pf{height:100%;background:linear-gradient(90deg,var(--ac),var(--ac2));border-radius:2px;transition:width .4s}.step-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--mt);margin-bottom:7px}.step-title{font-size:21px;font-weight:800;letter-spacing:-.4px;margin-bottom:6px}.step-sub{font-size:13px;color:var(--t2);margin-bottom:22px}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:15px}.field label{display:block;font-size:11px;font-weight:600;color:var(--t2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}.field input,.field select{width:100%;background:var(--bg3);border:1.5px solid var(--b);border-radius:9px;padding:11px 14px;color:var(--tx);font-size:13px;outline:none;font-family:inherit;transition:border .2s}.field input:focus,.field select:focus{border-color:var(--ac)}.field input.err{border-color:var(--rd)!important}.field select option{background:var(--bg3)}.ind-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:8px}.ind-card{background:var(--bg3);border:2px solid var(--b);border-radius:12px;padding:14px 10px;text-align:center;cursor:pointer;transition:all .2s}.ind-card:hover{border-color:rgba(99,120,255,.4)}.ind-card.sel{border-color:var(--ac);background:rgba(99,120,255,.1)}.ind-card.err-ind{border-color:var(--rd)!important}.ind-icon{font-size:24px;margin-bottom:6px}.ind-name{font-size:12px;font-weight:700;margin-bottom:2px}.ind-sub{font-size:10px;color:var(--t2)}.role-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:8px}.role-card{background:var(--bg3);border:2px solid var(--b);border-radius:12px;padding:14px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:12px}.role-card:hover{border-color:rgba(99,120,255,.4)}.role-card.sel{border-color:var(--ac);background:rgba(99,120,255,.1)}.role-av{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}.role-name{font-size:13px;font-weight:700;margin-bottom:2px}.problems-wrap{flex:1;display:flex;align-items:flex-start;justify-content:center;padding:32px 20px}.problems-card{max-width:600px;width:100%;background:var(--card);border:1px solid var(--b2);border-radius:20px;padding:28px}.prob-section{margin-bottom:22px}.prob-section-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--mt);margin-bottom:10px}.prob-grid{display:grid;gap:7px}.prob-item{display:flex;align-items:flex-start;gap:10px;background:var(--bg3);border:1.5px solid var(--b);border-radius:10px;padding:11px 13px;cursor:pointer;transition:all .18s;user-select:none}.prob-item:hover{border-color:rgba(99,120,255,.35)}.prob-item.sel{border-color:var(--ac);background:rgba(99,120,255,.07)}.prob-check{width:20px;height:20px;border-radius:5px;border:2px solid var(--b);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .18s;margin-top:1px}.prob-item.sel .prob-check{background:var(--ac);border-color:var(--ac);color:#fff}.prob-icon{font-size:16px;flex-shrink:0;margin-top:1px}.prob-txt strong{display:block;font-weight:600;font-size:13px;margin-bottom:2px}.prob-txt span{font-size:11px;color:var(--t2)}.gen-wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:40px}.gen-card{max-width:440px;width:100%;text-align:center}.gen-icon{font-size:48px;margin-bottom:18px;animation:pulse 2s infinite}@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}.gen-title{font-size:22px;font-weight:800;margin-bottom:8px}.gen-sub{font-size:13px;color:var(--t2);margin-bottom:28px}.gen-steps{display:grid;gap:9px;max-width:360px;margin:0 auto}.gen-step{display:flex;align-items:center;gap:10px;padding:11px 14px;background:var(--card);border:1px solid var(--b);border-radius:10px;font-size:12px;opacity:.4;transition:all .3s}.gen-step.active{opacity:1;border-color:var(--ac);background:rgba(99,120,255,.07);color:var(--ac)}.gen-step.done{opacity:1;border-color:var(--gr);background:rgba(34,211,163,.06);color:var(--gr)}.gen-step .icon{font-size:16px;width:24px;text-align:center;flex-shrink:0}.app-bar{background:var(--bg2);border-bottom:1px solid var(--b);height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;position:sticky;top:0;z-index:100}.app-logo{display:flex;align-items:center;gap:10px}.app-lic{width:30px;height:30px;background:linear-gradient(135deg,var(--ac),var(--ac2));border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px}.app-name{font-size:14px;font-weight:700}.app-sub{font-size:10px;color:var(--mt);text-transform:uppercase;letter-spacing:.6px}.live-pill{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--t2);background:var(--bg3);border:1px solid var(--b);padding:4px 11px;border-radius:16px}.dot{width:6px;height:6px;border-radius:50%;background:var(--gr);box-shadow:0 0 6px var(--gr);animation:blink 2s infinite}@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}.user-chip{display:flex;align-items:center;gap:7px;background:var(--bg3);border:1px solid var(--b);border-radius:20px;padding:4px 12px 4px 4px;cursor:pointer}.u-av{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff}.app-body{flex:1;display:flex}.app-sb{width:220px;min-width:220px;background:var(--bg2);border-right:1px solid var(--b);padding:16px 0;display:flex;flex-direction:column}.app-main{flex:1;overflow-y:auto}.app-cn{padding:24px}.sb-ns{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--mt);padding:0 14px;margin:14px 0 5px}.sb-ni{display:flex;align-items:center;gap:9px;padding:9px 14px;font-size:12px;color:var(--t2);cursor:pointer;border-left:2px solid transparent;transition:all .15s}.sb-ni:hover{background:rgba(99,120,255,.06);color:var(--tx)}.sb-ni.on{background:rgba(99,120,255,.1);color:var(--ac);border-left-color:var(--ac)}.sb-nbadge{margin-left:auto;font-size:9px;font-weight:700;padding:1px 6px;border-radius:8px;background:rgba(99,120,255,.2);color:var(--ac)}.sb-foot{margin-top:auto;padding:14px;border-top:1px solid var(--b)}.pg{display:none;animation:fu .22s ease}.pg.on{display:block}@keyframes fu{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}.ph{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px;gap:14px}.ph h1{font-size:20px;font-weight:800;letter-spacing:-.4px;margin-bottom:3px}.ph p{font-size:12px;color:var(--t2)}.prog-overview{background:var(--card);border:1px solid var(--b);border-radius:14px;padding:20px 22px;margin-bottom:20px}.prog-overview-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}.prog-title{font-size:14px;font-weight:700}.prog-pct{font-size:22px;font-weight:800;color:var(--ac)}.prog-track{height:8px;background:var(--bg3);border-radius:4px;overflow:hidden;margin-bottom:10px}.prog-done{height:100%;background:linear-gradient(90deg,var(--ac),var(--ac2));border-radius:4px;transition:width .6s ease}.prog-meta{font-size:11px;color:var(--mt)}.task-card{background:var(--card);border:1px solid var(--b);border-radius:14px;margin-bottom:12px;overflow:hidden;transition:all .2s}.task-card.active-task{border-color:var(--b2);box-shadow:0 4px 20px rgba(99,120,255,.08)}.task-card.completed{opacity:.75;border-color:rgba(34,211,163,.2)}.task-card.locked{opacity:.45}.task-header{padding:18px 20px;display:flex;align-items:flex-start;gap:14px}.task-header.clickable{cursor:pointer}.task-header.clickable:hover .task-title{color:var(--ac)}.task-num{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0}.task-num.active-n{background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff}.task-num.done-n{background:rgba(34,211,163,.15);color:var(--gr);font-size:18px}.task-num.locked-n{background:var(--bg3);color:var(--mt)}.task-title{font-size:14px;font-weight:700;margin-bottom:4px;line-height:1.3;transition:color .15s}.task-desc{font-size:12px;color:var(--t2);line-height:1.55;margin-bottom:8px}.task-meta-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.tag{font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px}.tag-gr{background:rgba(34,211,163,.1);color:var(--gr)}.tag-yl{background:rgba(245,158,11,.1);color:var(--yl)}.tag-bl{background:rgba(99,120,255,.1);color:var(--ac)}.tag-rd{background:rgba(244,63,94,.1);color:var(--rd)}.status-badge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:8px;display:inline-block}.sb-active{background:rgba(99,120,255,.15);color:var(--ac)}.sb-done{background:rgba(34,211,163,.15);color:var(--gr)}.sb-locked{background:var(--bg3);color:var(--mt)}.task-right{text-align:right;flex-shrink:0}.task-save{font-size:13px;font-weight:700;color:var(--gr)}.task-save-l{font-size:10px;color:var(--mt)}.task-detail{border-top:1px solid var(--b);padding:22px 20px;display:none}.task-card.expanded .task-detail{display:block}.detail-block{background:var(--bg3);border:1px solid var(--b);border-radius:10px;padding:14px 16px;margin-bottom:14px}.detail-block-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--mt);margin-bottom:8px}.detail-block p{font-size:13px;line-height:1.6;color:var(--t2)}.detail-block p strong{color:var(--tx)}.extella-box{background:var(--bg2);border:2px solid rgba(99,120,255,.3);border-radius:12px;padding:16px 18px;margin-bottom:16px;position:relative}.extella-box-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}.extella-logo{width:24px;height:24px;background:linear-gradient(135deg,var(--ac),var(--ac2));border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}.extella-box-title{font-size:12px;font-weight:700;color:var(--ac)}.extella-box-sub{font-size:10px;color:var(--mt)}.expert-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(99,120,255,.12);border:1px solid rgba(99,120,255,.25);border-radius:6px;padding:3px 10px;font-size:11px;font-weight:700;color:var(--ac);margin-bottom:10px;font-family:monospace}.command-text{background:var(--bg3);border:1px solid var(--b);border-radius:8px;padding:12px 14px;font-size:12px;line-height:1.75;color:var(--tx);white-space:pre-wrap;font-family:inherit;max-height:200px;overflow-y:auto}.copy-btn{position:absolute;top:12px;right:12px;background:var(--bg3);border:1px solid var(--b);color:var(--t2);padding:5px 12px;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s}.copy-btn:hover{border-color:var(--ac);color:var(--ac)}.copy-btn.ok{border-color:var(--gr);color:var(--gr)}.how-steps{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}.how-step{display:flex;align-items:center;gap:6px;background:var(--bg3);border:1px solid var(--b);border-radius:8px;padding:7px 11px;font-size:11px;color:var(--t2)}.how-sn{width:18px;height:18px;border-radius:50%;background:var(--ac);color:#fff;font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}.done-banner{background:rgba(34,211,163,.08);border:1px solid rgba(34,211,163,.2);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--gr);display:flex;align-items:center;gap:8px}.action-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.bxt{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff;border:none;padding:10px 20px;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}.bxt:hover{opacity:.85}.btn{padding:10px 22px;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;border:none;font-family:inherit;transition:all .18s}.bp{background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff}.bp:hover{opacity:.85}.bg{background:transparent;border:1.5px solid var(--b);color:var(--t2)}.bg:hover{border-color:var(--ac);color:var(--tx)}.btn-row{display:flex;justify-content:space-between;align-items:center;margin-top:22px}.k{background:var(--card);border:1px solid var(--b);border-radius:12px;padding:14px 16px;position:relative;overflow:hidden}.k::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}.k.bl::before{background:var(--ac)}.k.gr::before{background:var(--gr)}.k.yl::before{background:var(--yl)}.k.pu::before{background:var(--ac2)}.kv{font-size:26px;font-weight:800;letter-spacing:-.5px}.kl{font-size:10px;color:var(--mt);text-transform:uppercase;letter-spacing:.5px;margin-top:5px}.card{background:var(--card);border:1px solid var(--b);border-radius:14px;overflow:hidden;margin-bottom:18px}.ch{padding:14px 18px;border-bottom:1px solid var(--b);display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:700}.cb{padding:16px 18px}.two{display:grid;grid-template-columns:1fr 280px;gap:16px;margin-bottom:18px}.mbar{height:4px;background:var(--bg3);border-radius:3px;overflow:hidden;margin-top:3px}.mfil{height:100%;border-radius:3px}.feed-i{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--b)}.feed-i:last-child{border-bottom:none}.fdot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:4px;background:var(--gr);box-shadow:0 0 5px var(--gr)}.ftxt{font-size:12px;line-height:1.5}.ftxt strong{color:var(--tx)}.ftime{font-size:10px;color:var(--mt);margin-top:2px}.em{text-align:center;padding:32px;color:var(--mt)}.em .ei{font-size:32px;margin-bottom:8px}.em p{font-size:13px;line-height:1.7}#toast{display:none;position:fixed;bottom:20px;right:20px;padding:13px 20px;border-radius:12px;font-size:13px;font-weight:600;z-index:9999;max-width:360px;line-height:1.5}::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:var(--b);border-radius:4px}@media(max-width:768px){.app-sb{display:none}.two{grid-template-columns:1fr}.ind-grid{grid-template-columns:repeat(2,1fr)}.role-grid{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}}</style>
+</head><body>
+<div class="screen on" id="s0"><div class="welcome-wrap"><div class="welcome-card">
+  <div class="logo-big">&#9889;</div>
+  <div class="w-title">Твой путь<br><span class="w-hl">AI&#8209;трансформации</span></div>
+  <div class="w-sub">5 минут&#8202;&mdash;&#8202;и у тебя персональный роадмап автоматизации. Реальные задачи, конкретные инструменты в Extella Desktop, измеримый результат.</div>
+  <div class="w-stats">
+    <div class="w-stat"><div class="w-stat-v">34</div><div class="w-stat-l">Задач-автоматизаций</div></div>
+    <div class="w-stat"><div class="w-stat-v">Day 1</div><div class="w-stat-l">До результата</div></div>
+    <div class="w-stat"><div class="w-stat-v">7</div><div class="w-stat-l">Отраслей</div></div>
   </div>
-</div>
+  <button class="btn bp" style="width:100%;padding:15px;font-size:15px" onclick="go('s1')">Начать &#x2192;</button>
+  <div style="margin-top:12px;font-size:11px;color:var(--mt)">Бесплатно &middot; Занимает 3&#8202;&#8211;&#8202;5 минут</div>
+</div></div></div>
 
-<div id="aw" style="display:none">
-<div class="bar">
+<div class="screen" id="s1"><div class="setup-wrap"><div class="setup-card">
+  <div class="pb"><div class="pf" style="width:20%"></div></div>
+  <div class="step-label">Шаг 1 из 4</div>
+  <div class="step-title">&#127970; О вашей компании</div>
+  <div class="step-sub">Персонализируем задачи под вашу сферу</div>
+  <div class="form-row">
+    <div class="field"><label>Название компании *</label><input id="f-company" placeholder="АО &laquo;Компания&raquo;"></div>
+    <div class="field"><label>Ваш город</label><input id="f-city" placeholder="Алматы"></div>
+  </div>
+  <div class="field" style="margin-bottom:20px"><label>Размер компании</label>
+    <select id="f-size"><option value="">Выберите...</option><option value="small">До 100 человек</option><option value="mid">100&#8202;&#8211;&#8202;1&#8201;000</option><option value="large">1&#8201;000&#8202;&#8211;&#8202;10&#8201;000</option><option value="xlarge">Более 10&#8201;000</option></select>
+  </div>
+  <div style="font-size:13px;font-weight:600;color:var(--tx);margin-bottom:12px">Выберите отрасль: *</div>
+  <div class="ind-grid" id="ind-grid">
+    <div class="ind-card" onclick="selInd('mining',this)"><div class="ind-icon">&#9935;</div><div class="ind-name">Добыча</div><div class="ind-sub">Горная, нефть, газ</div></div>
+    <div class="ind-card" onclick="selInd('finance',this)"><div class="ind-icon">&#127974;</div><div class="ind-name">Финансы</div><div class="ind-sub">Банки, страхование</div></div>
+    <div class="ind-card" onclick="selInd('construction',this)"><div class="ind-icon">&#127959;</div><div class="ind-name">Строительство</div><div class="ind-sub">EPC, девелопмент</div></div>
+    <div class="ind-card" onclick="selInd('gov',this)"><div class="ind-icon">&#127963;</div><div class="ind-name">Госсектор</div><div class="ind-sub">Министерства, квазигос</div></div>
+    <div class="ind-card" onclick="selInd('manufacturing',this)"><div class="ind-icon">&#127981;</div><div class="ind-name">Производство</div><div class="ind-sub">Завод, переработка</div></div>
+    <div class="ind-card" onclick="selInd('retail',this)"><div class="ind-icon">&#127978;</div><div class="ind-name">Ритейл</div><div class="ind-sub">Торговля, магазины</div></div>
+    <div class="ind-card" onclick="selInd('other',this)"><div class="ind-icon">&#128188;</div><div class="ind-name">Другое</div><div class="ind-sub">IT, услуги, прочее</div></div>
+  </div>
+  <div class="btn-row"><button class="btn bg" onclick="go('s0')">&#8592; Назад</button><button class="btn bp" onclick="nextStep1()">Далее &#x2192;</button></div>
+</div></div></div>
+
+<div class="screen" id="s2"><div class="setup-wrap"><div class="setup-card">
+  <div class="pb"><div class="pf" style="width:40%"></div></div>
+  <div class="step-label">Шаг 2 из 4</div>
+  <div class="step-title">&#128100; Кто вы в компании?</div>
+  <div class="step-sub">Задачи будут адаптированы под вашу роль</div>
+  <div class="field" style="margin-bottom:16px"><label>Ваше имя (необязательно)</label><input id="f-name" placeholder="Имя Фамилия"></div>
+  <div class="role-grid" id="role-grid"></div>
+  <div class="btn-row"><button class="btn bg" onclick="go('s1')">&#8592; Назад</button><button class="btn bp" id="btn-s2" onclick="nextStep2()" disabled>Далее &#x2192;</button></div>
+</div></div></div>
+
+<div class="screen" id="s3"><div class="problems-wrap"><div class="problems-card">
+  <div class="pb"><div class="pf" style="width:60%"></div></div>
+  <div class="step-label">Шаг 3 из 4</div>
+  <div class="step-title">&#128269; Что занимает ваше время?</div>
+  <div class="step-sub">Отметьте всё актуальное &mdash; чем больше, тем точнее роадмап</div>
+  <div id="problems-list"></div>
+  <div class="btn-row"><button class="btn bg" onclick="go('s2')">&#8592; Назад</button><button class="btn bp" id="btn-s3" onclick="generateRoadmap()" disabled>Создать роадмап &#x2192;</button></div>
+</div></div></div>
+
+<div class="screen" id="s4"><div class="gen-wrap"><div class="gen-card">
+  <div class="gen-icon">&#9889;</div>
+  <div class="gen-title">Создаём ваш роадмап</div>
+  <div class="gen-sub" id="gen-sub-text">Анализируем ваши ответы...</div>
+  <div class="gen-steps" id="gen-steps"></div>
+</div></div></div>
+
+<div class="screen" id="s5">
+<div class="app-bar">
+  <div class="app-logo"><div class="app-lic">&#9889;</div><div><div class="app-name">AI Corporate OS</div><div class="app-sub" id="app-company">-</div></div></div>
   <div style="display:flex;align-items:center;gap:10px">
-    <div class="lic">&#9889;</div>
-    <div><div style="font-size:14px;font-weight:700">AI Corporate OS</div><div style="font-size:10px;color:var(--mt);text-transform:uppercase;letter-spacing:.8px" id="corp">Live</div></div>
+    <div class="live-pill"><div class="dot"></div>Live</div>
+    <div style="font-size:10px;color:var(--gr);font-family:monospace" id="sync-lbl">-</div>
+    <div class="user-chip" onclick="resetProfile()"><div class="u-av" id="u-av" style="background:linear-gradient(135deg,#6378ff,#a855f7)">&#128100;</div><div><div style="font-size:12px;font-weight:600" id="u-name">-</div><div style="font-size:10px;color:var(--mt)" id="u-role">-</div></div></div>
   </div>
-  <div style="display:flex;align-items:center;gap:10px">
-    <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--t2);background:var(--bg3);border:1px solid var(--b);padding:5px 12px;border-radius:20px"><div class="dot"></div><span id="agcnt">&#8212;</span> agents</div>
-    <div style="font-size:10px;color:var(--gr);font-family:monospace">&#9679; Live</div>
-    <div class="chip" onclick="lo()">
-      <div class="av" id="tav" style="background:linear-gradient(135deg,#6378ff,#a855f7)">&#128100;</div>
-      <div><div style="font-size:12px;font-weight:600" id="tnm">&#8212;</div><div style="font-size:10px;color:var(--mt)" id="trl">&#8212;</div></div>
+</div>
+<div class="app-body">
+<div class="app-sb">
+  <div class="sb-ns">&#127775; Моё</div>
+  <div class="sb-ni on" id="n-roadmap" onclick="sp('roadmap',this)"><span style="width:18px;text-align:center">&#127775;</span>Мой роадмап<span class="sb-nbadge" id="tasks-badge">0</span></div>
+  <div class="sb-ni" id="n-done" onclick="sp('done',this)"><span style="width:18px;text-align:center">&#9989;</span>Выполнено</div>
+  <div class="sb-ns" id="sb-team-sec" style="display:none">&#128202; Управление</div>
+  <div class="sb-ni" id="n-team" onclick="sp('team',this)" style="display:none"><span style="width:18px;text-align:center">&#128202;</span>Команда</div>
+  <div class="sb-foot"><div style="background:var(--bg3);border-radius:9px;padding:10px"><div style="font-size:9px;color:var(--mt);margin-bottom:4px">&#128308; Live sync</div><div style="font-size:9px;color:var(--gr)">каждые 5 сек</div></div></div>
+</div>
+<div class="app-main"><div class="app-cn">
+  <div class="pg on" id="p-roadmap">
+    <div class="ph"><div><h1 id="roadmap-title">Мой AI-роадмап</h1><p id="roadmap-sub">-</p></div></div>
+    <div class="prog-overview" id="prog-overview"></div>
+    <div id="task-list"></div>
+  </div>
+  <div class="pg" id="p-done">
+    <div class="ph"><div><h1>Выполненные задачи</h1><p>Результаты из Extella Desktop</p></div></div>
+    <div id="done-list"></div>
+  </div>
+  <div class="pg" id="p-team">
+    <div class="ph"><div><h1>Прогресс команды</h1><p>Общая картина трансформации</p></div><button class="btn bg" style="font-size:11px;padding:7px 14px" onclick="loadTeam()">&#8634;</button></div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px" id="team-kpis"></div>
+    <div class="two">
+      <div class="card"><div class="ch">Клиенты<span style="font-size:9px;color:var(--gr);font-family:monospace">live</span></div><div id="team-clients"></div></div>
+      <div class="card"><div class="ch">Активность</div><div class="cb" id="team-feed" style="padding:12px 16px"></div></div>
     </div>
   </div>
-</div>
-
-<div class="layout">
-<div class="sb">
-  <div class="ns">Main</div>
-  <div class="ni on" id="n-home" onclick="sp('home',this)"><span style="width:18px;text-align:center">&#127968;</span>Dashboard</div>
-  <div class="ni" id="n-tasks" onclick="sp('tasks',this)"><span style="width:18px;text-align:center">&#9989;</span>Tasks<span class="nbadge" id="tb">0</span></div>
-  <div class="ni" id="n-hist" onclick="sp('hist',this)"><span style="width:18px;text-align:center">&#128203;</span>History</div>
-  <div class="ns" id="dns" style="display:none">Portfolio</div>
-  <div class="ni" id="n-dash" onclick="sp('dash',this)" style="display:none"><span style="width:18px;text-align:center">&#9638;</span>Analytics</div>
-  <div class="ni" id="n-cls" onclick="sp('clients',this)" style="display:none"><span style="width:18px;text-align:center">&#127970;</span>Clients</div>
-  <div class="ni" id="n-ags" onclick="sp('agents',this)" style="display:none"><span style="width:18px;text-align:center">&#129302;</span>Agents</div>
-  <div class="sbf">
-    <div style="background:var(--bg3);border-radius:10px;padding:10px">
-      <div style="font-size:9px;color:var(--mt);margin-bottom:4px">Backend API</div>
-      <div style="font-size:9px;font-family:monospace;color:var(--gr)" id="apiDisp">connecting...</div>
-    </div>
-  </div>
-</div>
-
-<div class="main"><div class="cn">
-
-<div class="pg on" id="p-home">
-  <div class="ph"><div><h1 id="greet">Welcome</h1><p id="hsub">Loading...</p></div></div>
-  <div class="kr" id="hkpis" style="grid-template-columns:repeat(4,1fr)"></div>
-  <div id="hcontent"></div>
-</div>
-
-<div class="pg" id="p-tasks">
-  <div class="ph"><div><h1>My Tasks</h1><p id="tsub">Loading...</p></div>
-    <div style="display:flex;gap:6px">
-      <button class="btn bp" style="font-size:11px;padding:5px 12px" onclick="ra('all',this)">All</button>
-      <button class="btn bg2" style="font-size:11px;padding:5px 12px" onclick="ra('pending',this)">Active</button>
-      <button class="btn bg2" style="font-size:11px;padding:5px 12px" onclick="ra('done',this)">Done</button>
-    </div>
-  </div>
-  <div id="tal"></div>
-</div>
-
-<div class="pg" id="p-hist">
-  <div class="ph"><div><h1>History</h1><p>Completed tasks</p></div></div>
-  <div id="hl"></div>
-</div>
-
-<div class="pg" id="p-dash">
-  <div class="ph"><div><h1>Dashboard</h1><p>Live portfolio</p></div><button class="btn bg2" onclick="ld()">&#8634; Refresh</button></div>
-  <div class="kr" id="dkpis" style="grid-template-columns:repeat(5,1fr)"></div>
-  <div class="two">
-    <div class="card"><div class="ch"><div class="ctit">Clients</div><span style="font-size:9px;font-family:monospace;color:var(--gr)">live</span></div><div id="dcl"></div></div>
-    <div class="card"><div class="ch"><div class="ctit">Activity</div></div><div class="cb" id="dfeed" style="padding:12px 16px"></div></div>
-  </div>
-  <div class="card"><div class="ch"><div class="ctit">ROI by Client</div></div><div class="cb"><div class="cwr"><canvas id="rc2"></canvas></div></div></div>
-</div>
-
-<div class="pg" id="p-clients">
-  <div class="ph"><div><h1>Clients</h1><p id="csub">Loading...</p></div><button class="btn bp" onclick="snc()">+ New Client</button></div>
-  <div id="cl2"></div>
-</div>
-
-<div class="pg" id="p-agents">
-  <div class="ph"><div><h1>AI Agents</h1><p id="asub">Loading...</p></div></div>
-  <div id="al2"></div>
-</div>
-
 </div></div>
 </div>
 </div>
-
-<div class="ov h" id="tov"><div class="md" id="tmd"></div></div>
-<div class="ov h" id="eov"><div class="md" id="emd" style="max-width:520px"></div></div>
-<div class="ov h" id="nco">
-<div class="md" style="max-width:440px">
-  <div class="mh"><div class="mtit">New Client</div><div class="mclose" onclick="cm('nco')">&#10005;</div></div>
-  <div class="mbody">
-    <div style="display:grid;gap:12px">
-      <div><div style="font-size:11px;font-weight:600;color:var(--t2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px">Name</div><input id="ncn" placeholder="Company Ltd"></div>
-      <div><div style="font-size:11px;font-weight:600;color:var(--t2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px">Industry</div>
-        <select id="nci"><option value="mining">Mining</option><option value="finance">Finance</option><option value="construction">Construction</option><option value="gov">Government</option><option value="telecom">Telecom</option></select></div>
-      <div><div style="font-size:11px;font-weight:600;color:var(--t2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px">City</div><input id="ncc" placeholder="Almaty"></div>
-    </div>
-    <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:16px">
-      <button class="btn bg2" onclick="cm('nco')">Cancel</button>
-      <button class="btn bp" onclick="cc()">Create &rarr;</button>
-    </div>
-  </div>
-</div>
-</div>
+<div id="toast"></div>
 
 <script>
-const API = 'https://api-production-788d.up.railway.app';
-const CL = ['linear-gradient(135deg,#6378ff,#a855f7)','linear-gradient(135deg,#22d3a3,#0ea5e9)','linear-gradient(135deg,#f59e0b,#ef4444)','linear-gradient(135deg,#8b5cf6,#ec4899)','linear-gradient(135deg,#0ea5e9,#6378ff)'];
-const IC = {predictive_maintenance_analysis:'&#128295;',dispatch_optimizer:'&#128667;',shift_data_entry:'&#128202;',ml_credit_scoring:'&#127919;',aml_monitor:'&#128270;',generate_strategy_doc:'&#128203;',default:'&#9889;'};
-let cur=null,tasks=[],clients=[],empIds={},selKey=null,roiCh=null;
-const ROLES = [
-  {key:'director',name:'Seitkali N.A.',role:'CEO',dept:'Management',av:'&#128084;',col:CL[0],isDir:true},
-  {key:'head',name:'Zhaksybekov A.',role:'Head of Production',dept:'QazMunayGas',av:'&#127981;',col:CL[1],isDir:false},
-  {key:'analyst',name:'Bekova M.',role:'Data Analyst',dept:'QazMunayGas',av:'&#128202;',col:CL[4],isDir:false},
-  {key:'dispatcher',name:'Omarov D.',role:'Shift Dispatcher',dept:'QazMunayGas',av:'&#128667;',col:'linear-gradient(135deg,#f59e0b,#ef4444)',isDir:false},
-  {key:'operator',name:'Satybaldi Y.',role:'Process Operator',dept:'QazMunayGas',av:'&#9881;',col:'linear-gradient(135deg,#475569,#334155)',isDir:false},
-];
-async function g(p){try{const r=await fetch(API+p);return r.ok?r.json():null}catch{return null}}
-async function p(p,d){try{const r=await fetch(API+p,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});return r.ok?r.json():null}catch{return null}}
-
-async function init(){
-  document.getElementById('auInfo').textContent = API;
-  document.getElementById('apiDisp').textContent = API.replace('https://','').substring(0,30);
-  const h = await g('/api/health');
-  if(!h){document.getElementById('ls2').innerHTML='<div style="color:var(--rd)">&#9888; API unavailable</div>';return}
-  document.getElementById('ls2').innerHTML='<div style="color:var(--gr)">&#10003; Connected &middot; DB:'+h.db+'</div>';
-  const emps = await g('/api/employees');
-  if(emps?.employees) emps.employees.forEach(e=>{
-    if(e.name.includes('Сейткали'))empIds.director=e.id;
-    else if(e.name.includes('Жаксыбеков'))empIds.head=e.id;
-    else if(e.name.includes('Бекова'))empIds.analyst=e.id;
-    else if(e.name.includes('Омаров'))empIds.dispatcher=e.id;
-    else if(e.name.includes('Сатыбалды'))empIds.operator=e.id;
-  });
-  document.getElementById('rg').innerHTML = ROLES.map(r=>`
-    <div class="rc" onclick="sr('${r.key}',this)" id="rc-${r.key}">
-      <div class="rca" style="background:${r.col}">${r.av}</div>
-      <div><div class="rn">${r.name}</div><div class="rd">${r.role}</div></div>
-      <div class="rr"><strong id="rc-c-${r.key}">&#8212;</strong>tasks</div>
-    </div>`).join('');
-  document.getElementById('rg').style.display='grid';
-  document.getElementById('lb').style.display='block';
-  ROLES.forEach(async r=>{
-    const el=document.getElementById('rc-c-'+r.key);if(!el)return;
-    if(r.isDir){const d=await g('/api/dashboard');if(d)el.textContent=(d.kpis?.tasks_done||0)+'&#10003;';return}
-    const eid=empIds[r.key];if(!eid){el.textContent='&#8212;';return}
-    const t=await g('/api/tasks?employee_id='+eid+'&status=pending');
-    el.textContent=t?.tasks?.length||0;
-  });
-}
-
-function sr(k,el){selKey=k;document.querySelectorAll('.rc').forEach(c=>c.classList.remove('sel'));el.classList.add('sel')}
-function doLogin(){if(!selKey){alert('Select a role');return}cur=ROLES.find(r=>r.key===selKey);document.getElementById('lw').style.display='none';document.getElementById('aw').style.display='block';setup()}
-function lo(){selKey=null;cur=null;tasks=[];document.getElementById('lw').style.display='flex';document.getElementById('aw').style.display='none';document.querySelectorAll('.rc').forEach(c=>c.classList.remove('sel'))}
-
-async function setup(){
-  document.getElementById('tav').innerHTML=cur.av;document.getElementById('tav').style.background=cur.col;
-  document.getElementById('tnm').textContent=cur.name;document.getElementById('trl').textContent=cur.role;
-  document.getElementById('corp').textContent=cur.dept;
-  if(cur.isDir){document.getElementById('dns').style.display='block';['n-dash','n-cls','n-ags'].forEach(id=>document.getElementById(id).style.display='flex')}
-  const d=await g('/api/dashboard');document.getElementById('agcnt').textContent=d?.kpis?.agents||'&#8212;';
-  await lt();rh();
-}
-
-async function lt(){
-  if(cur.isDir){const d=await g('/api/tasks');tasks=d?.tasks||[];}
-  else{const eid=empIds[cur.key];tasks=eid?(await g('/api/tasks?employee_id='+eid))?.tasks||[]:[]}
-  document.getElementById('tb').textContent=tasks.filter(t=>t.status!=='completed').length||0;
-}
-
-function gicon(t){return IC[t.expert_name]||IC.default}
-
-function mkCard(t){
-  const dn=t.status==='completed',cl=dn?'dn':t.priority==='urgent'?'urg':t.priority==='today'?'tdy':'nm';
-  const bc=dn?'bdn':t.priority==='urgent'?'bu':t.priority==='today'?'bt':'bnm';
-  const bt=dn?'&#9989; Done':t.priority==='urgent'?'&#128308; URGENT':t.priority==='today'?'&#128993; Today':'&#128203; Normal';
-  return`<div class="tc ${cl}" onclick="ot('${t.id}')"><div class="ti"><div>
-    <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px;flex-wrap:wrap">
-      <span style="font-size:18px">${gicon(t)}</span>
-      <span class="bdg ${bc}">${bt}</span>
-      <span class="bdg bai">&#9889; Extella</span>
-      ${t.employee_name?`<span style="font-size:10px;color:var(--mt)">${t.employee_name}</span>`:''}
-    </div>
-    <div class="tt">${t.title}</div>
-    <div class="tdsc">${(t.description||'').substring(0,100)}</div>
-    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-      <span style="font-size:10px;color:var(--mt)">&#128204; ${t.source||'manual'}</span>
-      <span style="font-size:10px;color:var(--mt)">&#129302; ${t.expert_name||'&#8212;'}</span>
-    </div>
-  </div>
-  <div>
-    <div style="font-size:13px;font-weight:700;color:var(--gr);text-align:right">${t.roi_estimate||'&#8212;'}</div>
-    <div style="font-size:9px;color:var(--mt);text-align:right">ROI</div>
-    <div style="margin-top:8px">
-      ${!dn?`<button class="bxt" onclick="event.stopPropagation();ot('${t.id}')">&#9889; Run</button>`:`<button class="bxt dn">&#10003; Done</button>`}
-    </div>
-  </div>
-  </div></div>`;
-}
-
-function rh(){
-  const h=new Date().getHours(),gr=h<12?'Good morning':h<18?'Good afternoon':'Good evening';
-  document.getElementById('greet').textContent=gr+', '+cur.name.split(' ')[0]+'!';
-  const pend=tasks.filter(t=>t.status!=='completed');
-  document.getElementById('hsub').textContent=cur.dept+' · '+pend.length+' tasks pending';
-  document.getElementById('hkpis').innerHTML=[
-    {v:tasks.length,l:'Total Tasks',cl:'bl'},{v:pend.length,l:'Pending',cl:'yl'},
-    {v:tasks.filter(t=>t.status==='completed').length,l:'Done',cl:'gr'},
-    {v:pend.filter(t=>t.priority==='urgent').length,l:'Urgent',cl:'rd'}
-  ].map(k=>`<div class="k ${k.cl}"><div class="kv">${k.v}</div><div class="kl">${k.l}</div></div>`).join('');
-  const urg=pend.filter(t=>t.priority==='urgent'),td=pend.filter(t=>t.priority!=='urgent');
-  let html='';
-  if(urg.length)html+=`<div style="font-size:14px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px"><span style="width:3px;height:16px;background:var(--rd);border-radius:2px;display:inline-block"></span>&#128308; Urgent</div>`+urg.slice(0,3).map(mkCard).join('');
-  if(td.length)html+=`<div style="font-size:14px;font-weight:700;margin-bottom:12px;margin-top:20px;display:flex;align-items:center;gap:8px"><span style="width:3px;height:16px;background:var(--yl);border-radius:2px;display:inline-block"></span>&#128993; Today</div>`+td.slice(0,3).map(mkCard).join('');
-  if(!html)html='<div class="em"><div class="emico">&#9989;</div><p>No active tasks!</p></div>';
-  document.getElementById('hcontent').innerHTML=html;
-  ra('all');
-  const done=tasks.filter(t=>t.status==='completed');
-  document.getElementById('hl').innerHTML=done.length?done.map(t=>`
-    <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border:1px solid var(--b);border-radius:10px;margin-bottom:8px">
-      <div style="font-size:18px">&#9989;</div>
-      <div><div style="font-size:13px;font-weight:600">${t.title}</div><div style="font-size:11px;color:var(--t2)">${t.expert_name||'&#8212;'}</div></div>
-      <div style="margin-left:auto;font-size:11px;color:var(--gr)">&#10003;</div>
-    </div>`).join(''):'<div class="em"><div class="emico">&#128203;</div><p>No history yet</p></div>';
-}
-
-function ra(f,btn){
-  document.getElementById('tsub').textContent=tasks.length+' tasks · '+tasks.filter(t=>t.status!=='completed').length+' active';
-  if(btn){document.querySelectorAll('#p-tasks .btn').forEach(b=>b.className='btn bg2');btn.className='btn bp';}
-  const list=f==='all'?tasks:tasks.filter(t=>f==='pending'?t.status!=='completed':t.status==='completed');
-  document.getElementById('tal').innerHTML=list.length?list.map(mkCard).join(''):'<div class="em"><div class="emico">&#9989;</div><p>No tasks</p></div>';
-}
-
-const ES={predictive_maintenance_analysis:[{t:400,c:'i',l:'Loading sensor CSV...'},{t:1100,c:'i',l:'FFT bearing analysis...'},{t:2000,c:'w',l:'&#9888; Anomaly: bearing #3 critical'},{t:3000,c:'i',l:'Failure prediction: 8-12 days'},{t:3800,c:'s',l:'&#10003; Results saved to AI OS...'}],ml_credit_scoring:[{t:400,c:'i',l:'Loading 5,000 applications...'},{t:1300,c:'i',l:'XGBoost scoring 47 features...'},{t:2300,c:'i',l:'Accuracy: 94.2% | AUC: 0.97'},{t:3100,c:'s',l:'&#10003; ROI $82,000 saved to API'}],dispatch_optimizer:[{t:300,c:'i',l:'BelAZ #04 stopped...'},{t:900,c:'i',l:'Recalculating routes (OR)...'},{t:1800,c:'s',l:'&#10003; Routes ready. Loss: 4.2% vs 18%'}],shift_data_entry:[{t:400,c:'i',l:'OCR: reading 24 meters...'},{t:1400,c:'i',l:'Validating data...'},{t:2300,c:'s',l:'&#10003; Report sent. 40 min saved'}],default:[{t:400,c:'i',l:'Initializing...'},{t:1200,c:'i',l:'Processing data...'},{t:2100,c:'s',l:'&#10003; Task completed!'}]};
-const ER={predictive_maintenance_analysis:{t:'Predictive Maintenance',i:['Bearing #3 - critical trend','Maintenance: Apr 25-27','Prevented loss: ~$83,000'],r:83000,m:240,s:'Predictive analysis EKP-12. Bearing #3 critical.'},ml_credit_scoring:{t:'ML Credit Scoring',i:['5,000 apps. Accuracy 94.2%','Auto-decision 78%','Time: 5 days → 4 hours'],r:82000,m:240,s:'ML scoring 5,000 apps. ROI $82,000.'},dispatch_optimizer:{t:'Route Optimization',i:['Loss: 18% → 4.2%','Plan completion: 96%'],r:0,m:60,s:'Routes redistributed. Loss 4.2%.'},shift_data_entry:{t:'Meter Entry',i:['24 instruments logged','Report sent automatically'],r:0,m:40,s:'Shift data entered automatically.'},default:{t:'Task Done',i:['Data processed','Result saved'],r:0,m:30,s:'Task completed.'}};
-
-function ot(id){
-  const t=tasks.find(x=>x.id===id);if(!t)return;
-  const dn=t.status==='completed';
-  document.getElementById('tmd').innerHTML=`
-    <div class="mh"><div>
-      <div style="display:flex;align-items:center;gap:7px;margin-bottom:5px">
-        <span style="font-size:20px">${gicon(t)}</span>
-        <span class="bdg ${dn?'bdn':t.priority==='urgent'?'bu':'bt'}">${dn?'&#9989; Done':t.priority==='urgent'?'&#128308; URGENT':'&#128993; Today'}</span>
-        <span class="bdg bai">&#9889; Extella</span>
-      </div>
-      <div class="mtit">${t.title}</div>
-      <div class="msub">${t.expert_name||'&#8212;'} &middot; ${t.source||'manual'}</div>
-    </div>
-    <div class="mclose" onclick="cm('tov')">&#10005;</div></div>
-    <div class="mbody">
-      <div class="ig">
-        <div class="ic"><div class="il">ROI</div><div class="iv" style="color:var(--gr)">${t.roi_estimate||'&#8212;'}</div></div>
-        <div class="ic"><div class="il">Expert</div><div class="iv" style="font-family:monospace;font-size:11px">${t.expert_name||'&#8212;'}</div></div>
-      </div>
-      <div style="font-size:13px;color:var(--t2);line-height:1.65">${t.description||'No description'}</div>
-    </div>
-    <div class="mfoot">
-      <button class="btn bg2" onclick="cm('tov')">Close</button>
-      ${!dn?`<button class="bxt" onclick="cm('tov');le('${id}')">&#9889; Launch in Extella &rarr;</button>`:`<button class="bxt dn">&#10003; Completed</button>`}
-    </div>`;
-  document.getElementById('tov').classList.remove('h');
-}
-
-function le(id){
-  const t=tasks.find(x=>x.id===id);if(!t)return;
-  document.getElementById('emd').innerHTML=`
-    <div class="mh"><div class="mtit">&#9889; Extella Expert</div><div class="msub" style="font-family:monospace">${t.expert_name||'default'}</div><div class="mclose" onclick="cm('eov')">&#10005;</div></div>
-    <div class="mbody"><div class="term" id="trm"><div class="tl h">&#9658; Extella AI OS &middot; Live</div><div class="tl i">Connecting: ${t.expert_name||'default'}...</div></div><div id="er2"></div><div style="text-align:center" id="ebw"><button class="btn bg2" style="font-size:11px" onclick="cm('eov')">Cancel</button></div></div>`;
-  document.getElementById('eov').classList.remove('h');
-  const sc=ES[t.expert_name]||ES.default,term=document.getElementById('trm');
-  sc.forEach(({t:d,c,l})=>setTimeout(()=>{const el=document.createElement('div');el.className='tl '+c;el.innerHTML=l;term.appendChild(el);term.scrollTop=term.scrollHeight;if(c==='s')setTimeout(()=>er2(id,t),500);},d));
-}
-
-async function er2(id,t){
-  const res=ER[t.expert_name]||ER.default;
-  let ok=false;
-  try{const r=await p('/api/tasks/'+id+'/complete',{result_summary:res.s,time_saved_minutes:res.m,roi_realized:res.r});ok=r?.status==='completed';}catch(e){}
-  document.getElementById('er2').innerHTML=`
-    <div class="rb"><div class="rtit">&#9989; ${res.t}</div>
-      ${res.i.map(i=>`<div class="ri">&#10003; ${i}</div>`).join('')}
-      <div style="margin-top:8px;font-size:11px;color:var(--t2)">&#9201; ${res.m} min saved${res.r>0?' &middot; &#128176; $'+res.r.toLocaleString():''}</div>
-      <div style="margin-top:4px;font-size:10px;color:${ok?'var(--gr)':'var(--yl)'}">${ok?'&#10003; Saved to PostgreSQL (AI OS)':'&#9888; Completed locally'}</div>
-    </div>`;
-  document.getElementById('ebw').innerHTML=`<div style="display:flex;gap:10px;justify-content:center"><button class="btn bg2" onclick="cm('eov')">Close</button><button class="bxt dn" onclick="mkdn('${id}')">&#10003; Mark Done</button></div>`;
-  await lt();
-}
-
-async function mkdn(id){
-  const i=tasks.findIndex(t=>t.id===id);if(i>=0)tasks[i].status='completed';
-  document.getElementById('tb').textContent=tasks.filter(t=>t.status!=='completed').length||0;
-  cm('eov');ra('all');rh();sp('tasks',document.getElementById('n-tasks'));
-}
-
-async function ld(){
-  document.getElementById('dkpis').innerHTML='<div style="padding:16px;text-align:center"><div class="sp"></div></div>';
-  const d=await g('/api/dashboard');const cl=await g('/api/clients');clients=cl?.clients||[];
-  if(!d)return;
-  document.getElementById('dkpis').innerHTML=[
-    {v:d.kpis?.clients||0,l:'Clients',cl:'bl'},{v:d.kpis?.agents||0,l:'AI Agents',cl:'gr'},
-    {v:'$'+Number(d.kpis?.roi||0).toLocaleString(),l:'Total ROI',cl:'pu'},{v:d.kpis?.tasks_done||0,l:'Tasks Done',cl:'yl'},
-    {v:clients.length,l:'Portfolio',cl:'bl'}
-  ].map(k=>`<div class="k ${k.cl}"><div class="kv">${k.v}</div><div class="kl">${k.l}</div></div>`).join('');
-  document.getElementById('dcl').innerHTML=clients.length?clients.map((c,i)=>{
-    const pct=c.progress_pct||(c.tasks_total>0?Math.round(c.tasks_done/c.tasks_total*100):0);
-    return`<div class="clrow" style="grid-template-columns:26px 1fr 50px 60px">
-      <div style="width:24px;height:24px;border-radius:5px;background:${CL[i%5]};display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff">${c.name.charAt(0)}</div>
-      <div><div style="font-size:12px;font-weight:700">${c.name}</div><div class="mb"><div class="mf" style="width:${pct}%;background:${pct>70?'var(--gr)':pct>40?'var(--ac)':'var(--rd)'}"></div></div></div>
-      <div style="font-size:12px;font-weight:700;color:${pct>70?'var(--gr)':pct>40?'var(--yl)':'var(--rd)'}">${pct}%</div>
-      <div style="font-size:12px;font-weight:700;color:var(--gr)">$${Number(c.roi_realized||0).toLocaleString()}</div>
-    </div>`;}).join(''):'<div class="em" style="padding:20px"><p>No clients</p></div>';
-  const act=d.activity||[];
-  document.getElementById('dfeed').innerHTML=act.length?act.slice(0,8).map(a=>`
-    <div class="fi"><div class="fdot"></div><div>
-      <div class="ftxt"><strong>${a.client_name}</strong> &middot; ${a.employee_name}: ${a.title||a.expert_name}</div>
-      <div class="ftime">${a.roi_realized>0?'&#128176; $'+Number(a.roi_realized).toLocaleString():'Completed'}</div>
-    </div></div>`).join(''):'<div class="em" style="padding:20px"><p>Complete tasks to see activity</p></div>';
-  if(roiCh)roiCh.destroy();
-  const ctx=document.getElementById('rc2');
-  if(ctx&&clients.length)roiCh=new Chart(ctx,{type:'bar',data:{labels:clients.map(c=>c.name.split(' ')[0]),datasets:[{label:'ROI',data:clients.map(c=>Number(c.roi_realized||0)),backgroundColor:'rgba(99,120,255,.7)',borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'$'+c.raw.toLocaleString()}}},scales:{x:{grid:{color:'rgba(99,120,255,.08)'},ticks:{color:'var(--mt)',font:{size:10}}},y:{grid:{color:'rgba(99,120,255,.08)'},ticks:{color:'var(--mt)',font:{size:10},callback:v=>'$'+v.toLocaleString()}}}}});
-}
-
-async function lcl(){
-  const d=await g('/api/clients');clients=d?.clients||[];
-  document.getElementById('csub').textContent=clients.length+' companies &middot; Live';
-  document.getElementById('cl2').innerHTML=clients.length?`<div style="background:var(--card);border:1px solid var(--b);border-radius:14px;overflow:hidden">
-    ${clients.map((c,i)=>{
-      const pct=c.progress_pct||(c.tasks_total>0?Math.round(c.tasks_done/c.tasks_total*100):0);
-      const sc=pct>70?'bdn':pct>20?'bt':'bnm',st=pct>70?'&#9679; Active':pct>20?'&#9680; Pilot':'&#9675; Setup';
-      return`<div class="clrow" style="grid-template-columns:26px 1fr 70px 60px 60px 60px;cursor:pointer" onmouseover="this.style.background='rgba(99,120,255,.04)'" onmouseout="this.style.background=''">
-        <div style="width:24px;height:24px;border-radius:5px;background:${CL[i%5]};display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff">${c.name.charAt(0)}</div>
-        <div><div style="font-size:12px;font-weight:700">${c.name}</div><div style="font-size:10px;color:var(--t2)">${c.industry||'&#8212;'} &middot; ${c.city||'&#8212;'}</div></div>
-        <span class="bdg ${sc}">${st}</span>
-        <div style="font-size:12px;font-weight:700">${c.agents_count||0}</div>
-        <div><div style="font-size:11px;font-weight:700;color:${pct>70?'var(--gr)':pct>40?'var(--yl)':'var(--rd)'}">${pct}%</div><div class="mb"><div class="mf" style="width:${pct}%;background:${pct>70?'var(--gr)':pct>40?'var(--ac)':'var(--rd)'}"></div></div></div>
-        <div style="font-size:12px;font-weight:700;color:${c.roi_realized>0?'var(--gr)':'var(--mt)'}">$${Number(c.roi_realized||0).toLocaleString()}</div>
-      </div>`;}).join('')}</div>`
-  :'<div class="em"><div class="emico">&#127970;</div><p>No clients</p></div>';
-}
-
-async function lag(){
-  const d=await g('/api/agents');const ags=d?.agents||[];
-  document.getElementById('asub').textContent=ags.length+' agents registered';
-  document.getElementById('al2').innerHTML=ags.length?`<div style="background:var(--card);border:1px solid var(--b);border-radius:14px;overflow:hidden">
-    ${ags.map(a=>`<div class="clrow" style="grid-template-columns:26px 1fr 80px 60px">
-      <div style="width:24px;height:24px;border-radius:5px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:12px">&#9889;</div>
-      <div><div style="font-size:12px;font-weight:600;font-family:monospace">${a.name}</div><div style="font-size:10px;color:var(--t2)">${a.description||'&#8212;'}</div></div>
-      <span class="bdg bdn">${a.category||'&#8212;'}</span>
-      <div style="font-size:13px;font-weight:700">${a.runs_total||0}</div>
-    </div>`).join('')}</div>`
-  :'<div class="em"><div class="emico">&#129302;</div><p>No agents</p></div>';
-}
-
-async function cc(){
-  const name=document.getElementById('ncn').value.trim(),ind=document.getElementById('nci').value,city=document.getElementById('ncc').value.trim();
-  if(!name){alert('Enter name');return}
-  const r=await p('/api/clients',{name,industry:ind,city,employees_total:0,contract_value:''});
-  if(r?.id){cm('nco');await lcl();alert('Client "'+name+'" created!\nID: '+r.id);}else alert('Error creating client');
-}
-
-function sp(id,el){
-  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
-  document.querySelectorAll('.ni').forEach(n=>n.classList.remove('on'));
-  const pg=document.getElementById('p-'+id);if(pg)pg.classList.add('on');
-  if(el)el.classList.add('on');
-  document.querySelector('.main').scrollTop=0;
-  if(id==='dash')ld();if(id==='clients')lcl();if(id==='agents')lag();if(id==='tasks')ra('all');
-}
-function cm(id){document.getElementById(id).classList.add('h')}
-function snc(){document.getElementById('nco').classList.remove('h')}
-window.onload=init;
+var ROLES_BY_IND={"mining": [{"k": "director", "n": "Генеральный директор", "ic": "&#128084;", "col": "linear-gradient(135deg,#6378ff,#a855f7)"}, {"k": "ops", "n": "Начальник производства", "ic": "&#9935;", "col": "linear-gradient(135deg,#0ea5e9,#6378ff)"}, {"k": "analyst", "n": "Аналитик / Геолог", "ic": "&#128202;", "col": "linear-gradient(135deg,#22d3a3,#0ea5e9)"}, {"k": "dispatcher", "n": "Диспетчер", "ic": "&#128667;", "col": "linear-gradient(135deg,#f59e0b,#ef4444)"}, {"k": "engineer", "n": "Инженер / Механик", "ic": "&#128295;", "col": "linear-gradient(135deg,#475569,#334155)"}, {"k": "economist", "n": "Экономист / Бухгалтер", "ic": "&#128200;", "col": "linear-gradient(135deg,#8b5cf6,#ec4899)"}], "finance": [{"k": "director", "n": "Руководитель / Директор", "ic": "&#128084;", "col": "linear-gradient(135deg,#6378ff,#a855f7)"}, {"k": "risk", "n": "Риск-менеджер", "ic": "&#127919;", "col": "linear-gradient(135deg,#0ea5e9,#6378ff)"}, {"k": "credit", "n": "Кредитный офицер", "ic": "&#128179;", "col": "linear-gradient(135deg,#22d3a3,#0ea5e9)"}, {"k": "compliance", "n": "Комплаенс / Юрист", "ic": "&#128203;", "col": "linear-gradient(135deg,#f59e0b,#ef4444)"}, {"k": "economist", "n": "Бухгалтер / Экономист", "ic": "&#128200;", "col": "linear-gradient(135deg,#475569,#334155)"}, {"k": "it", "n": "IT / Разработка", "ic": "&#128187;", "col": "linear-gradient(135deg,#8b5cf6,#ec4899)"}], "construction": [{"k": "director", "n": "Генеральный директор", "ic": "&#128084;", "col": "linear-gradient(135deg,#6378ff,#a855f7)"}, {"k": "pm", "n": "Руководитель проекта", "ic": "&#127959;", "col": "linear-gradient(135deg,#0ea5e9,#6378ff)"}, {"k": "estimate", "n": "Сметчик / ПТО", "ic": "&#128203;", "col": "linear-gradient(135deg,#22d3a3,#0ea5e9)"}, {"k": "procurement", "n": "Снабженец / МТО", "ic": "&#128666;", "col": "linear-gradient(135deg,#f59e0b,#ef4444)"}, {"k": "engineer", "n": "Инженер / Прораб", "ic": "&#9881;", "col": "linear-gradient(135deg,#475569,#334155)"}, {"k": "economist", "n": "Экономист", "ic": "&#128200;", "col": "linear-gradient(135deg,#8b5cf6,#ec4899)"}], "gov": [{"k": "director", "n": "Руководитель", "ic": "&#128084;", "col": "linear-gradient(135deg,#6378ff,#a855f7)"}, {"k": "analyst", "n": "Аналитик / Советник", "ic": "&#128202;", "col": "linear-gradient(135deg,#0ea5e9,#6378ff)"}, {"k": "procurement", "n": "Специалист по закупкам", "ic": "&#128201;", "col": "linear-gradient(135deg,#22d3a3,#0ea5e9)"}, {"k": "service", "n": "Специалист по услугам", "ic": "&#127963;", "col": "linear-gradient(135deg,#f59e0b,#ef4444)"}, {"k": "it", "n": "IT / Цифровизация", "ic": "&#128187;", "col": "linear-gradient(135deg,#475569,#334155)"}, {"k": "economist", "n": "Экономист / Плановик", "ic": "&#128200;", "col": "linear-gradient(135deg,#8b5cf6,#ec4899)"}], "manufacturing": [{"k": "director", "n": "Генеральный директор", "ic": "&#128084;", "col": "linear-gradient(135deg,#6378ff,#a855f7)"}, {"k": "ops", "n": "Начальник производства", "ic": "&#127981;", "col": "linear-gradient(135deg,#0ea5e9,#6378ff)"}, {"k": "quality", "n": "Контроль качества", "ic": "&#128269;", "col": "linear-gradient(135deg,#22d3a3,#0ea5e9)"}, {"k": "logistics", "n": "Логистика / Склад", "ic": "&#128230;", "col": "linear-gradient(135deg,#f59e0b,#ef4444)"}, {"k": "engineer", "n": "Технолог / Инженер", "ic": "&#128295;", "col": "linear-gradient(135deg,#475569,#334155)"}, {"k": "economist", "n": "Экономист", "ic": "&#128200;", "col": "linear-gradient(135deg,#8b5cf6,#ec4899)"}], "retail": [{"k": "store_director", "n": "Директор / Управляющий", "ic": "&#127978;", "col": "linear-gradient(135deg,#6378ff,#a855f7)"}, {"k": "category_mgr", "n": "Категорийный менеджер", "ic": "&#128202;", "col": "linear-gradient(135deg,#0ea5e9,#6378ff)"}, {"k": "buyer", "n": "Байер / Закупщик", "ic": "&#128722;", "col": "linear-gradient(135deg,#22d3a3,#0ea5e9)"}, {"k": "logist", "n": "Логист / Склад", "ic": "&#128230;", "col": "linear-gradient(135deg,#f59e0b,#ef4444)"}, {"k": "hr", "n": "HR-менеджер", "ic": "&#128101;", "col": "linear-gradient(135deg,#475569,#334155)"}, {"k": "it", "n": "IT-менеджер", "ic": "&#128187;", "col": "linear-gradient(135deg,#8b5cf6,#ec4899)"}], "other": [{"k": "director", "n": "Руководитель / CEO", "ic": "&#128084;", "col": "linear-gradient(135deg,#6378ff,#a855f7)"}, {"k": "analyst", "n": "Аналитик / Маркетолог", "ic": "&#128202;", "col": "linear-gradient(135deg,#0ea5e9,#6378ff)"}, {"k": "sales", "n": "Продажи / CRM", "ic": "&#128179;", "col": "linear-gradient(135deg,#22d3a3,#0ea5e9)"}, {"k": "hr", "n": "HR / Кадры", "ic": "&#128101;", "col": "linear-gradient(135deg,#f59e0b,#ef4444)"}, {"k": "economist", "n": "Бухгалтер / Экономист", "ic": "&#128200;", "col": "linear-gradient(135deg,#475569,#334155)"}, {"k": "it", "n": "IT / Разработка", "ic": "&#128187;", "col": "linear-gradient(135deg,#8b5cf6,#ec4899)"}]};
+var UNIVERSAL_PROBS=[{"id": "rep", "ic": "&#128202;", "title": "Пишу регулярные отчёты вручную", "sub": "Собираю данные из разных источников — часы каждую неделю"}, {"id": "excel", "ic": "&#128200;", "title": "Анализирую данные в Excel вручную", "sub": "То что AI делает за минуты — у меня занимает часы"}, {"id": "invoices_pack", "ic": "&#128196;", "title": "Обрабатываю первичные документы вручную", "sub": "Накладные, счета-фактуры — реестр и проводки вручную"}, {"id": "meeting", "ic": "&#128221;", "title": "Трачу время на протоколы встреч", "sub": "После каждой встречи вручную записываю решения и задачи"}, {"id": "contracts", "ic": "&#9878;", "title": "Анализирую и проверяю договора вручную", "sub": "Каждый договор — часы внимательного чтения"}, {"id": "supplier_cmp", "ic": "&#128722;", "title": "Сравниваю коммерческие предложения вручную", "sub": "Собираю КП поставщиков и делаю сравнение в Excel часами"}];
+var ROLE_PROBS={"director": [{"id": "kpi", "ic": "&#127919;", "title": "Данные о KPI приходят с задержкой", "sub": "Принимаю решения на вчерашних данных"}, {"id": "finance_digest", "ic": "&#128200;", "title": "Нет ежедневного финансового дайджеста", "sub": "Деньги и задолженности в разных источниках"}], "ops": [{"id": "shift_mining", "ic": "&#9203;", "title": "Пишу рапорт смены вручную", "sub": "Ежедневная работа 30-60 минут"}, {"id": "downtime", "ic": "&#128295;", "title": "Нет аналитики по простоям", "sub": "Непонятно сколько теряем из-за поломок"}], "analyst": [{"id": "gov_kpi", "ic": "&#128201;", "title": "Собираю аналитический отчёт вручную", "sub": "Данные из нескольких источников — долго"}, {"id": "clean", "ic": "&#128260;", "title": "50% времени на подготовку данных", "sub": "А не на сам анализ"}], "risk": [{"id": "scoring", "ic": "&#127919;", "title": "Оцениваю риски вручную", "sub": "Скоринг занимает часы вместо минут"}], "credit": [{"id": "credit_docs", "ic": "&#128203;", "title": "Проверяю пакет документов вручную", "sub": "Каждая заявка — 2-3 часа проверки"}, {"id": "reconcile", "ic": "&#128260;", "title": "Сверяю данные платежей вручную", "sub": "Выписка банка vs 1С — целый день"}], "compliance": [{"id": "credit_docs", "ic": "&#128270;", "title": "Нет чеклиста проверки пакетов", "sub": "Каждый раз помню наизусть что должно быть"}], "engineer": [{"id": "hidden_act", "ic": "&#128203;", "title": "Пишу акты скрытых работ вручную", "sub": "Каждый акт — 30-60 минут"}, {"id": "id_registry", "ic": "&#128194;", "title": "Комплектую исполнительную документацию", "sub": "Десятки актов при сдаче объекта"}, {"id": "maintenance", "ic": "&#128295;", "title": "Слежу за планом ТО вручную", "sub": "Просроченное ТО — первый шаг к аварии"}], "dispatcher": [{"id": "downtime", "ic": "&#9203;", "title": "Нет оперативной сводки по технике", "sub": "Узнаю о простоях постфактум"}], "economist": [{"id": "reconcile", "ic": "&#128260;", "title": "Сверяю платёжные данные вручную", "sub": "Целый рабочий день"}, {"id": "osv_1c", "ic": "&#128210;", "title": "Анализирую ОСВ из 1С вручную", "sub": "Ищу аномалии и задолженности часами"}, {"id": "invoices_pack", "ic": "&#128196;", "title": "Обрабатываю входящие счета-фактуры вручную", "sub": "Реестр, проводки — занимает всё утро"}], "pm": [{"id": "daily_report_const", "ic": "&#128211;", "title": "Составляю ежедневный отчёт прораба", "sub": "30-60 минут каждый вечер"}, {"id": "budget_track", "ic": "&#128200;", "title": "Слежу за бюджетом объекта вручную", "sub": "Смета vs факт — из нескольких источников"}], "estimate": [{"id": "ks2_check", "ic": "&#128269;", "title": "Проверяю КС-2 субподрядчиков вручную", "sub": "Каждый акт — час сверки с договором"}, {"id": "id_registry", "ic": "&#128194;", "title": "Веду реестр исполнительной документации", "sub": "Что сдано, что не хватает — вручную"}], "procurement": [{"id": "supplier_cmp", "ic": "&#128722;", "title": "Сравниваю КП поставщиков вручную", "sub": "Сводная таблица — 3-4 часа"}, {"id": "tender_spec", "ic": "&#128203;", "title": "Составляю техническое задание", "sub": "ТЗ для каждой закупки — почти с нуля"}], "service": [{"id": "citizens", "ic": "&#127963;", "title": "Обрабатываю обращения граждан вручную", "sub": "Классификация, черновики ответов — всё вручную"}], "quality": [{"id": "quality_otk", "ic": "&#128269;", "title": "Анализирую дефекты без системы", "sub": "Не вижу системные причины и финансовые потери"}], "logistics": [{"id": "inventory_audit", "ic": "&#128230;", "title": "Нет системы контроля остатков", "sub": "Узнаю о дефиците когда товар закончился"}], "hr": [{"id": "score_cv", "ic": "&#128101;", "title": "Просматриваю резюме вручную", "sub": "50 резюме — 2 дня работы"}, {"id": "turnover", "ic": "&#128201;", "title": "Нет аналитики по текучести", "sub": "Непонятно почему уходят и сколько стоит"}], "sales": [{"id": "crm", "ic": "&#128179;", "title": "Заполняю CRM вручную после встреч", "sub": "Теряю детали, записи занимают время"}], "store_director": [{"id": "sku_analysis", "ic": "&#128202;", "title": "Не знаю что продаётся а что лежит", "sub": "Нет анализа по SKU — решения принимаю интуитивно"}, {"id": "inventory_audit", "ic": "&#128230;", "title": "Узнаю о дефиците когда уже поздно", "sub": "Пересчёт остатков вручную — теряем выручку"}], "category_mgr": [{"id": "sku_analysis", "ic": "&#128202;", "title": "Анализирую продажи по SKU вручную", "sub": "Excel с тысячами позиций — медленно"}, {"id": "supplier_cmp", "ic": "&#128722;", "title": "Сравниваю поставщиков вручную", "sub": "Каждое сравнение — часы в Excel"}], "buyer": [{"id": "supplier_cmp", "ic": "&#128722;", "title": "Сравниваю КП поставщиков вручную", "sub": "5 предложений, 20 критериев — вручную"}, {"id": "invoices_pack", "ic": "&#128196;", "title": "Обрабатываю первичные документы вручную", "sub": "Накладные, счета — реестр вручную"}], "logist": [{"id": "inventory_audit", "ic": "&#128230;", "title": "Управляю остатками в Excel", "sub": "Дефициты и перезатаривание не вижу заранее"}], "it": [{"id": "support", "ic": "&#128187;", "title": "Отвечаю на одни и те же вопросы", "sub": "Повторяющиеся запросы в поддержку"}], "default": []};
+var TASK_LIB={"contracts": {"title": "Анализ договора за 2 минуты", "problem": "Каждый договор требует 3-4 часа. Риски легко пропустить.", "result": "Стороны, сроки, штрафы, красные флаги — готовый документ.", "saves": "3-4 часа на договор", "level": 1, "levelLbl": "Начало", "expert": "aios_analyze_contract", "extella_say": "Запусти aios_analyze_contract.\n\nfile_path = ~/Downloads/[contract.pdf]\n\nЖду анализ с рисками.", "result_files": "contract_analysis_*.docx в ~/Downloads/"}, "meeting": {"title": "Протокол встречи автоматически", "problem": "30-60 минут после каждой встречи на запись задач.", "result": "Протокол с поручениями, ответственными, дедлайнами.", "saves": "30-60 минут после встречи", "level": 1, "levelLbl": "Начало", "expert": "aios_meeting_to_protocol", "extella_say": "Запусти aios_meeting_to_protocol.\n\nТекст встречи:\n[вставь заметки]\n\nНужен протокол с таблицей поручений.", "result_files": "meeting_protocol.docx в ~/Downloads/"}, "rep": {"title": "Автоматизируй регулярный отчёт", "problem": "2-4 часа каждую неделю собирая данные вручную.", "result": "Скрипт генерирует отчёт за один запуск.", "saves": "2-4 часа каждую неделю", "level": 1, "levelLbl": "Начало", "expert": "", "extella_say": "Помоги автоматизировать регулярный отчёт.\n\nРазделы: [опиши]\nДанные из: [Excel / 1С]\n\nСоздай скрипт auto_report.py.", "result_files": "auto_report.py в ~/Downloads/"}, "excel": {"title": "AI-анализ Excel-данных", "problem": "Графики и таблицы вручную — часы работы.", "result": "HTML дашборд с графиками и AI-инсайтами за 5 минут.", "saves": "4-6 часов на анализ", "level": 1, "levelLbl": "Начало", "expert": "aios_analyze_sales", "extella_say": "Запусти aios_analyze_sales.\n\nfile_path = ~/Downloads/[файл.csv]\n\nХочу дашборд с трендами и инсайтами.", "result_files": "sales_report_*.html в ~/Downloads/"}, "supplier_cmp": {"title": "Сравнение коммерческих предложений", "problem": "КП от 3-5 поставщиков — часы сравнения вручную.", "result": "Excel матрица баллов + Word служебная записка с победителем.", "saves": "3-4 часа на выбор поставщика", "level": 1, "levelLbl": "Начало", "expert": "aios_supplier_comparison", "extella_say": "Запусти aios_supplier_comparison.\n\nquotes_file = ~/Downloads/[КП.xlsx]\nprocurement_subject = [что закупаем]\nbudget_tg = [бюджет]\n\nЖду матрицу и рекомендацию победителя.", "result_files": "supplier_comparison_*.xlsx + memo_*.docx в ~/Downloads/"}, "osv_1c": {"title": "Анализ ОСВ из 1С: найди аномалии", "problem": "Выгрузил ОСВ из 1С. Нужно найти просроченные долги, застрявшие авансы — часы.", "result": "HTML дашборд: красные флаги по каждому счёту с суммами и рекомендациями.", "saves": "2-3 часа каждый период", "level": 1, "levelLbl": "Начало", "expert": "aios_oborot_analysis", "extella_say": "Запусти aios_oborot_analysis.\n\nosv_file = ~/Downloads/[ОСВ_1С.xlsx]\ncompany_name = [компания]\nperiod = [квартал]\n\nНайди аномалии по счетам.", "result_files": "osv_analysis_*.html в ~/Downloads/"}, "invoices_pack": {"title": "Реестр входящих счетов-фактур", "problem": "Пачка накладных. Нужен реестр, проводки, флаги для документов без договора.", "result": "Excel реестр: суммы, БИН, НДС, проводки, флаги (БЕЗ ДОГОВОРА, ПРОВЕРИТЬ НДС).", "saves": "2-4 часа на обработку", "level": 1, "levelLbl": "Начало", "expert": "aios_invoice_extractor", "extella_say": "Запусти aios_invoice_extractor.\n\ninput_file = ~/Downloads/[накладные.txt]\ncompany_name = [наша компания]\n\nСоздай реестр с проводками и флагами.", "result_files": "invoice_registry_*.xlsx в ~/Downloads/"}, "reconcile": {"title": "Автосверка банковской выписки", "problem": "Сверка банка с реестром 1С — целый рабочий день.", "result": "Excel с расхождениями: только в банке, только в 1С, разные суммы.", "saves": "1 день → 15 минут", "level": 1, "levelLbl": "Начало", "expert": "aios_bank_reconciliation", "extella_say": "Запусти aios_bank_reconciliation.\n\nbank_file = ~/Downloads/[выписка.csv]\nregistry_file = ~/Downloads/[реестр.csv]\n\nНайди все расхождения.", "result_files": "bank_reconciliation_*.xlsx в ~/Downloads/"}, "score_cv": {"title": "AI-скоринг резюме кандидатов", "problem": "50 резюме = 2 дня просмотра вручную.", "result": "Excel рейтинг: балл 0-100, сильные стороны, риски, вопросы для интервью.", "saves": "8-12 часов на набор", "level": 1, "levelLbl": "Начало", "expert": "aios_score_resumes", "extella_say": "Запусти aios_score_resumes.\n\nresumes_dir = ~/Downloads/resumes/\nvacancy_file = ~/Downloads/vacancy.txt\n\nЖду рейтинг с вопросами для интервью.", "result_files": "resume_scoring_*.xlsx в ~/Downloads/"}, "turnover": {"title": "Анализ текучести персонала", "problem": "Непонятно почему уходят люди и сколько это стоит.", "result": "HTML дашборд: % по отделам, причины, финансовые потери, группы риска.", "saves": "День аналитики → 5 минут", "level": 1, "levelLbl": "Начало", "expert": "aios_turnover_analysis", "extella_say": "Запусти aios_turnover_analysis.\n\nturnover_file = ~/Downloads/[уволенные.csv]\ntotal_headcount = [численность]\n\nЖду дашборд с причинами и рекомендациями.", "result_files": "turnover_analysis_*.html в ~/Downloads/"}, "hidden_act": {"title": "Акт скрытых работ за 1 минуту", "problem": "Каждый акт — 30-60 минут вручную по шаблону.", "result": "Акт .docx по форме СП РК 1.04-106-2014 с материалами и нормативами.", "saves": "30-60 минут на каждый акт", "level": 1, "levelLbl": "Начало", "expert": "aios_hidden_work_act", "extella_say": "Запусти aios_hidden_work_act.\n\nОпиши выполненную работу:\n[что сделали, где, материалы, объём, сертификаты]\n\nНужен акт по форме СП РК.", "result_files": "act_hidden_work_*.docx в ~/Downloads/"}, "daily_report_const": {"title": "Ежедневный отчёт прораба", "problem": "30-60 минут каждый вечер: что сделано, проблемы, план.", "result": "Отчёт .docx: план/факт, простои, заявки на материалы, задачи на завтра.", "saves": "30-60 минут каждый день", "level": 1, "levelLbl": "Начало", "expert": "aios_daily_site_report", "extella_say": "Запусти aios_daily_site_report.\n\nЗаметки за сегодня:\n[свободный текст]\n\nНужен ежедневный отчёт по объекту.", "result_files": "daily_report_*.docx в ~/Downloads/"}, "ks2_check": {"title": "Проверка КС-2 субподрядчика", "problem": "КС-2 нужно сверить с договором. Час минимум.", "result": "Excel сверка: расхождения, превышения, позиции не в договоре.", "saves": "1-2 часа на каждый КС-2", "level": 1, "levelLbl": "Начало", "expert": "aios_ks2_check", "extella_say": "Запусти aios_ks2_check.\n\nks2_file = ~/Downloads/[КС-2.xlsx]\ncontract_file = ~/Downloads/[смета.xlsx]\n\nНайди расхождения.", "result_files": "ks2_check_*.xlsx в ~/Downloads/"}, "budget_track": {"title": "Контроль бюджета объекта", "problem": "Смета vs факт — нет единой картины. Перерасход узнаю поздно.", "result": "HTML дашборд: бюджет/факт/остаток, топ превышений, прогноз.", "saves": "Предотвращает перерасход", "level": 2, "levelLbl": "Средний", "expert": "aios_budget_tracker", "extella_say": "Запусти aios_budget_tracker.\n\nestimate_file = ~/Downloads/[смета.xlsx]\nactual_file = ~/Downloads/[факт.xlsx]\nproject_name = [объект]\n\nХочу дашборд план-факт.", "result_files": "budget_report_*.html в ~/Downloads/"}, "id_registry": {"title": "Реестр исполнительной документации", "problem": "При сдаче объекта нужны десятки актов. Непонятно каких не хватает.", "result": "Excel реестр: все документы по нормативам, статус, ответственный.", "saves": "2-3 дня подготовки к сдаче", "level": 2, "levelLbl": "Средний", "expert": "aios_ispolnitelnaya_registry", "extella_say": "Запусти aios_ispolnitelnaya_registry.\n\nworks_file = ~/Downloads/[список_работ.xlsx]\nproject_name = [объект]\n\nСформируй реестр ИД.", "result_files": "id_registry_*.xlsx в ~/Downloads/"}, "finance_digest": {"title": "Ежедневный финансовый дайджест", "problem": "Остаток, дебиторка, платежи — каждое утро из разных источников.", "result": "HTML дашборд: остаток, поступления, задолженности, алерты.", "saves": "30-60 минут каждое утро", "level": 1, "levelLbl": "Начало", "expert": "aios_finance_daily_digest", "extella_say": "Запусти aios_finance_daily_digest.\n\nkpi_file = ~/Downloads/[фин_кпи.csv]\ncompany_name = [компания]\n\nЖду дашборд с алертами.", "result_files": "finance_digest_*.html в ~/Downloads/"}, "credit_docs": {"title": "Проверка пакета документов по кредиту", "problem": "Клиент принёс пакет. Нужно проверить — 2-3 часа.", "result": "Word заключение: чеклист, залог, ПКБ скоринг, риски, вердикт.", "saves": "2-3 часа на заявку", "level": 1, "levelLbl": "Начало", "expert": "aios_credit_doc_check", "extella_say": "Запусти aios_credit_doc_check.\n\nfile_path = ~/Downloads/[пакет.txt]\nloan_amount = [сумма кредита]\n\nЖду заключение с вердиктом.", "result_files": "credit_doc_check_*.docx в ~/Downloads/"}, "shift_mining": {"title": "Рапорт горной смены за 2 минуты", "problem": "Каждые 12 часов рапорт — добыча, техника, простои. Вручную 40-60 минут.", "result": "Word рапорт: добыча план/факт, БВР, простои, передача смены.", "saves": "40-60 минут каждую смену", "level": 1, "levelLbl": "Начало", "expert": "aios_shift_report_mining", "extella_say": "Запусти aios_shift_report_mining.\n\nЗаметки за смену:\n[свободный текст]\n\nНужен рапорт смены.", "result_files": "shift_report_*.docx в ~/Downloads/"}, "downtime": {"title": "Парето-анализ простоев техники", "problem": "Журнал есть, но непонятно какие причины главные и потери в тоннах.", "result": "HTML дашборд: Парето по причинам, потери в тоннах.", "saves": "4-8 часов месячного анализа", "level": 2, "levelLbl": "Средний", "expert": "aios_downtime_analysis", "extella_say": "Запусти aios_downtime_analysis.\n\ndowntime_file = ~/Downloads/[простои.csv]\nperiod_name = [период]\n\nЖду парето с потерями.", "result_files": "downtime_analysis_*.html в ~/Downloads/"}, "material_norms": {"title": "Контроль расхода материалов vs нормы", "problem": "Превышение нормы — объяснительная и ЧП.", "result": "Excel: факт vs норма, % отклонений, финансовый эффект в тг.", "saves": "3-4 часа ежемесячно", "level": 1, "levelLbl": "Начало", "expert": "aios_material_norm_check", "extella_say": "Запусти aios_material_norm_check.\n\nconsumption_file = ~/Downloads/[расход.xlsx]\nfuel_price_tg = 320\n\nНайди превышения.", "result_files": "material_norms_*.xlsx в ~/Downloads/"}, "citizens": {"title": "Обработка обращений граждан", "problem": "100+ обращений — классификация, черновики ответов. Всё вручную.", "result": "Excel реестр по приоритетам + Word черновики ответов.", "saves": "5-8 часов в день", "level": 1, "levelLbl": "Начало", "expert": "aios_citizen_request_processor", "extella_say": "Запусти aios_citizen_request_processor.\n\ninput_file = ~/Downloads/[обращения.txt]\norg_name = [организация]\n\nОбработай: классификация, черновики.", "result_files": "citizens_*.xlsx + responses_*.docx в ~/Downloads/"}, "tender_spec": {"title": "Техническое задание для закупки", "problem": "ТЗ по Закону РК. Сейчас 2-4 часа на составление.", "result": "Word ТЗ с техтребованиями, критериями, условиями договора.", "saves": "2-4 часа на одно ТЗ", "level": 1, "levelLbl": "Начало", "expert": "aios_tender_spec_generator", "extella_say": "Запусти aios_tender_spec_generator.\n\ninput_file = ~/Downloads/[потребность.txt]\norg_name = [организация]\nbudget_tg = [бюджет]\n\nСоздай ТЗ по Закону РК.", "result_files": "tender_spec_*.docx в ~/Downloads/"}, "gov_kpi": {"title": "Аналитический отчёт по КПЭ", "problem": "Ежеквартально: собрать показатели, написать отклонения.", "result": "HTML дашборд: КПЭ, проблемные показатели, план мероприятий.", "saves": "1-2 дня на квартальный отчёт", "level": 1, "levelLbl": "Начало", "expert": "aios_gov_kpi_report", "extella_say": "Запусти aios_gov_kpi_report.\n\nkpi_file = ~/Downloads/[показатели.csv]\norg_name = [организация]\nperiod = [квартал]\n\nЖду отчёт с планом.", "result_files": "gov_kpi_report_*.html в ~/Downloads/"}, "shift_mfg": {"title": "Рапорт производственной смены", "problem": "Рапорт смены: линии, брак, простои. 40-60 минут вручную.", "result": "Word рапорт: план/факт по линиям, простои, ресурсы, задания смене.", "saves": "40-60 минут каждую смену", "level": 1, "levelLbl": "Начало", "expert": "aios_production_shift_report", "extella_say": "Запусти aios_production_shift_report.\n\nЗаметки смены:\n[свободный текст]\n\nНужен рапорт.", "result_files": "shift_report_*.docx в ~/Downloads/"}, "quality_otk": {"title": "Анализ дефектов ОТК", "problem": "Журнал дефектов есть — не видно системных причин и потерь деньгами.", "result": "HTML дашборд: Парето дефектов, корневые причины, финансовые потери.", "saves": "День анализа → 10 минут", "level": 1, "levelLbl": "Начало", "expert": "aios_quality_control_report", "extella_say": "Запусти aios_quality_control_report.\n\ndefects_file = ~/Downloads/[дефекты.csv]\nproduct_cost_per_tonne = [себестоимость]\n\nЖду Парето с причинами.", "result_files": "quality_report_*.html в ~/Downloads/"}, "maintenance": {"title": "Статус технического обслуживания", "problem": "Кто просрочил ТО? Какой риск отказа?", "result": "Excel: просроченные ТО, риск отказа, немедленные действия.", "saves": "Предотвращает аварии", "level": 2, "levelLbl": "Средний", "expert": "aios_maintenance_dashboard", "extella_say": "Запусти aios_maintenance_dashboard.\n\nmaintenance_file = ~/Downloads/[план_ТО.xlsx]\n\nНайди просроченное ТО.", "result_files": "maintenance_status_*.xlsx в ~/Downloads/"}, "sku_analysis": {"title": "Анализ продаж по SKU", "problem": "Не видно что продаётся хорошо и что лежит.", "result": "HTML дашборд: топ-10 и аутсайдеры SKU, выручка по категориям.", "saves": "8-16 часов на анализ", "level": 1, "levelLbl": "Начало", "expert": "aios_sales_sku_analysis", "extella_say": "Запусти aios_sales_sku_analysis.\n\nsales_file = ~/Downloads/[продажи.csv]\nstore_name = [магазин]\n\nЖду дашборд с топами.", "result_files": "sales_analysis_*.html в ~/Downloads/"}, "inventory_audit": {"title": "Аудит товарных остатков", "problem": "Дефицит вижу когда товар уже закончился.", "result": "Excel: дефициты, перезатоварены, отсутствует, срочные заявки.", "saves": "Предотвращает потери выручки", "level": 1, "levelLbl": "Начало", "expert": "aios_inventory_audit", "extella_say": "Запусти aios_inventory_audit.\n\ninventory_file = ~/Downloads/[остатки.csv]\nstore_name = [магазин]\n\nПокажи дефициты и заявки.", "result_files": "inventory_audit_*.xlsx в ~/Downloads/"}, "kpi": {"title": "Live-дашборд KPI для директора", "problem": "Данные о показателях приходят с задержкой.", "result": "Все KPI обновляются автоматически в одном месте.", "saves": "2-3 часа в день", "level": 2, "levelLbl": "Средний", "expert": "", "extella_say": "Создай дашборд KPI.\n\nПоказатели: [список]\nИсточники: [Excel / 1С]\n\nHTML дашборд.", "result_files": "kpi_dashboard/ в ~/Downloads/"}, "rfp": {"title": "Тендерная документация", "problem": "Тендерная документация каждый раз почти с нуля.", "result": "Полный пакет ТЗ за 10 минут.", "saves": "8-16 часов на пакет", "level": 1, "levelLbl": "Начало", "expert": "aios_tender_spec_generator", "extella_say": "Запусти aios_tender_spec_generator.\n\ninput_file = ~/Downloads/[описание.txt]\norg_name = [организация]\nbudget_tg = [бюджет]\n\nСоздай ТЗ.", "result_files": "tender_spec_*.docx в ~/Downloads/"}, "scoring": {"title": "ML-скоринг рисков", "problem": "Оцениваешь риски вручную — долго и субъективно.", "result": "ML-модель оценивает риск за секунды с объяснением.", "saves": "Часы аналитика → секунды", "level": 3, "levelLbl": "Продвинутый", "expert": "", "extella_say": "Построй ML-модель скоринга.\n\nДанные: ~/Downloads/historical_data.csv\n\nXGBoost + SHAP + интерфейс.", "result_files": "scoring_model/ в ~/Downloads/"}, "clean": {"title": "Автоматическая очистка данных", "problem": "50% времени — подготовка данных.", "result": "Скрипт чистит данные автоматически.", "saves": "2-4 часа перед анализом", "level": 1, "levelLbl": "Начало", "expert": "", "extella_say": "Создай скрипт очистки данных.\n\nФайл: ~/Downloads/[данные.csv]\nПроблемы: [дубликаты / пустые поля]\n\nСкрипт: загружает, чистит, сохраняет.", "result_files": "data_cleaner.py + *_clean.csv"}, "crm": {"title": "Автозаполнение CRM после встречи", "problem": "CRM заполняется вручную — теряю детали, тратится время.", "result": "Скрипт из заметок встречи структурирует данные и добавляет в CRM.", "saves": "20-30 минут после каждой встречи", "level": 1, "levelLbl": "Начало", "expert": "", "extella_say": "Создай автозаполнение CRM.\n\nТекст встречи: [заметки]\nCRM: [HubSpot / Bitrix / другое]\n\nСтруктурируй и добавь запись.", "result_files": "crm_entry.json в ~/Downloads/"}, "aml": {"title": "Детекция аномалий в транзакциях", "problem": "Ручная проверка транзакций медленна и пропускает паттерны.", "result": "Isolation Forest автоматически находит подозрительные операции.", "saves": "Сотни часов ручного аудита", "level": 3, "levelLbl": "Продвинутый", "expert": "", "extella_say": "Создай систему обнаружения аномалий.\n\nФайл: ~/Downloads/transactions.csv\n\nIsolation Forest + отчёт с risk score.", "result_files": "anomalies_report.xlsx в ~/Downloads/"}};
+var BACKEND='https://api-production-788d.up.railway.app';var profile={};var tasks=[];var expandedTask=null;var GEN_ST=[{ic:'&#128269;',t:'Анализируем выбранные проблемы...'},{ic:'&#129302;',t:'Подбираем задачи под вашу роль...'},{ic:'&#9889;',t:'Привязываем Extella-экспертов...'},{ic:'&#127775;',t:'Выстраиваем последовательность...'},{ic:'&#9989;',t:'Роадмап готов!'}];function saveProfile(){localStorage.setItem('aios_p',JSON.stringify(profile));}function loadProfile(){try{var s=localStorage.getItem('aios_p');if(s)profile=JSON.parse(s);}catch(e){}}function saveTasks(t){localStorage.setItem('aios_t',JSON.stringify(t));}function loadTasks(){try{var s=localStorage.getItem('aios_t');return s?JSON.parse(s):[];}catch(e){return[];}}function resetProfile(){if(!confirm('Сбросить профиль и начать заново?'))return;localStorage.clear();location.reload();}function go(id){var sc=document.querySelectorAll('.screen');for(var i=0;i<sc.length;i++)sc[i].classList.remove('on');document.getElementById(id).classList.add('on');window.scrollTo(0,0);}function sp(pid,el){var pg=document.querySelectorAll('.pg');for(var i=0;i<pg.length;i++)pg[i].classList.remove('on');document.getElementById('p-'+pid).classList.add('on');var nv=document.querySelectorAll('.sb-ni');for(var i=0;i<nv.length;i++)nv[i].classList.remove('on');if(el)el.classList.add('on');document.querySelector('.app-main').scrollTop=0;if(pid==='done')renderDone();if(pid==='team')loadTeam();}function toast(msg,isErr){var el=document.getElementById('toast');el.innerHTML=msg;el.style.cssText=isErr?'display:block;position:fixed;bottom:20px;right:20px;padding:13px 20px;border-radius:12px;font-size:13px;font-weight:600;z-index:9999;max-width:360px;background:rgba(244,63,94,.12);border:1px solid rgba(244,63,94,.3);color:#f43f5e;':'display:block;position:fixed;bottom:20px;right:20px;padding:13px 20px;border-radius:12px;font-size:13px;font-weight:600;z-index:9999;max-width:360px;background:rgba(34,211,163,.12);border:1px solid rgba(34,211,163,.3);color:#22d3a3;';clearTimeout(el._t);el._t=setTimeout(function(){el.style.display='none';},4000);}function selInd(ind,el){profile.industry=ind;var cards=document.querySelectorAll('.ind-card');for(var i=0;i<cards.length;i++)cards[i].classList.remove('sel','err-ind');el.classList.add('sel');}function nextStep1(){var company=document.getElementById('f-company').value.trim();if(!company){toast('&#9888; Введите название компании',true);document.getElementById('f-company').classList.add('err');setTimeout(function(){document.getElementById('f-company').classList.remove('err');},2000);return;}if(!profile.industry){toast('&#9888; Выберите отрасль',true);var c=document.querySelectorAll('.ind-card');for(var i=0;i<c.length;i++)c[i].classList.add('err-ind');setTimeout(function(){var c=document.querySelectorAll('.ind-card');for(var i=0;i<c.length;i++)c[i].classList.remove('err-ind');},2000);return;}profile.company=company;profile.city=document.getElementById('f-city').value.trim();profile.size=document.getElementById('f-size').value;saveProfile();renderRoles();go('s2');}function renderRoles(){var roles=ROLES_BY_IND[profile.industry]||ROLES_BY_IND.other;var html='';for(var i=0;i<roles.length;i++){var r=roles[i];html+='<div class="role-card" onclick="selRole(\''+r.k+'\',this,\''+r.col+'\',\''+r.ic+'\')"><div class="role-av" style="background:'+r.col+'">'+r.ic+'</div><div><div class="role-name">'+r.n+'</div></div></div>';}document.getElementById('role-grid').innerHTML=html;}function selRole(k,el,col,ic){profile.roleKey=k;profile.roleCol=col;profile.roleIc=ic;var roles=ROLES_BY_IND[profile.industry]||ROLES_BY_IND.other;for(var i=0;i<roles.length;i++){if(roles[i].k===k){profile.roleName=roles[i].n;break;}}var cards=document.querySelectorAll('.role-card');for(var i=0;i<cards.length;i++)cards[i].classList.remove('sel');el.classList.add('sel');document.getElementById('btn-s2').disabled=false;saveProfile();}function nextStep2(){if(!profile.roleKey){toast('&#9888; Выберите вашу роль',true);return;}renderProblems();go('s3');}function mkProbItem(p){var sel=profile.selectedProbs&&profile.selectedProbs.indexOf(p.id)>=0;return'<div class="prob-item'+(sel?' sel':'')+'" id="prob-'+p.id+'" onclick="toggleProb(\''+p.id+'\',this)"><div class="prob-check">'+(sel?'&#10003;':'')+'</div><div class="prob-icon">'+p.ic+'</div><div class="prob-txt"><strong>'+p.title+'</strong><span>'+p.sub+'</span></div></div>';}function renderProblems(){var roleProbs=ROLE_PROBS[profile.roleKey]||[];if(!profile.selectedProbs)profile.selectedProbs=[];var html='<div class="prob-section"><div class="prob-section-title">Универсальные задачи</div><div class="prob-grid">';for(var i=0;i<UNIVERSAL_PROBS.length;i++)html+=mkProbItem(UNIVERSAL_PROBS[i]);html+='</div></div>';if(roleProbs.length>0){html+='<div class="prob-section"><div class="prob-section-title">Специфично для вашей роли</div><div class="prob-grid">';for(var j=0;j<roleProbs.length;j++)html+=mkProbItem(roleProbs[j]);html+='</div></div>';}document.getElementById('problems-list').innerHTML=html;updateProbCount();}function toggleProb(id,el){el.classList.toggle('sel');var ch=el.querySelector('.prob-check');if(el.classList.contains('sel')){if(!profile.selectedProbs)profile.selectedProbs=[];if(profile.selectedProbs.indexOf(id)<0)profile.selectedProbs.push(id);ch.innerHTML='&#10003;';}else{profile.selectedProbs=profile.selectedProbs.filter(function(p){return p!==id;});ch.innerHTML='';}updateProbCount();saveProfile();}function updateProbCount(){var cnt=profile.selectedProbs?profile.selectedProbs.length:0;var btn=document.getElementById('btn-s3');btn.disabled=cnt===0;btn.textContent=cnt>0?'Создать роадмап ('+cnt+') \u2192':'Создать роадмап \u2192';}function generateRoadmap(){var ni=document.getElementById('f-name');profile.name=ni?ni.value.trim():'';if(!profile.name)profile.name=profile.roleName;saveProfile();go('s4');var sh='';for(var i=0;i<GEN_ST.length;i++)sh+='<div class="gen-step'+(i===0?' active':'')+'" id="gs'+i+'"><div class="icon">'+GEN_ST[i].ic+'</div>'+GEN_ST[i].t+'</div>';document.getElementById('gen-steps').innerHTML=sh;var idx=0;function next(){if(idx>=GEN_ST.length){buildTasks();setTimeout(function(){go('s5');initApp();},400);return;}if(idx>0){var p=document.getElementById('gs'+(idx-1));if(p)p.className='gen-step done';}var s=document.getElementById('gs'+idx);if(s){s.className='gen-step active';s.style.opacity='1';}document.getElementById('gen-sub-text').textContent=GEN_ST[idx].t;idx++;setTimeout(next,600+Math.random()*400);}setTimeout(next,300);}function buildTasks(){var probs=profile.selectedProbs||[];var list=[];for(var i=0;i<probs.length;i++){var id=probs[i];if(TASK_LIB[id])list.push(Object.assign({},TASK_LIB[id],{id:id,status:'locked'}));}list.sort(function(a,b){return a.level-b.level;});list=list.slice(0,8);if(list.length>0)list[0].status='active';profile.tasks=list;saveTasks(list);saveProfile();}function apiGet(p){return fetch(BACKEND+p,{signal:AbortSignal.timeout(8000)}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;});}function apiPost(p,d){return fetch(BACKEND+p,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d),signal:AbortSignal.timeout(8000)}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;});}function initApp(){if(profile.company)document.getElementById('app-company').textContent=profile.company;if(profile.name)document.getElementById('u-name').textContent=profile.name.split(' ')[0];if(profile.roleName)document.getElementById('u-role').textContent=profile.roleName;if(profile.roleCol){document.getElementById('u-av').style.background=profile.roleCol;document.getElementById('u-av').innerHTML=profile.roleIc||'&#128100;';}if(['director','store_director'].indexOf(profile.roleKey)>=0){document.getElementById('sb-team-sec').style.display='block';document.getElementById('n-team').style.display='flex';}tasks=loadTasks();renderRoadmap();var t=0;setInterval(function(){t+=5;document.getElementById('sync-lbl').textContent=t+'s ago';},5000);}function renderRoadmap(){tasks=loadTasks();var total=tasks.length,done=0;for(var i=0;i<tasks.length;i++)if(tasks[i].status==='completed')done++;var pct=total>0?Math.round(done/total*100):0;var active=null;for(var i=0;i<tasks.length;i++)if(tasks[i].status==='active'){active=tasks[i];break;}var pending=0;for(var i=0;i<tasks.length;i++)if(tasks[i].status!=='completed')pending++;document.getElementById('roadmap-sub').textContent=(profile.roleName||'')+' \u00b7 '+(profile.company||'')+' \u00b7 Выполни каждую задачу в Extella Desktop';document.getElementById('tasks-badge').textContent=pending||0;var metaText=active?('&#9889; Сейчас: <strong>'+active.title+'</strong>'):(done===total&&total>0?'&#127881; Все задачи выполнены!':'&#9203; Продолжай...');document.getElementById('prog-overview').innerHTML='<div class="prog-overview-head"><div><div class="prog-title">Прогресс AI-трансформации</div><div style="font-size:12px;color:var(--t2);margin-top:2px">'+done+' из '+total+' задач выполнено</div></div><div class="prog-pct">'+pct+'%</div></div><div class="prog-track"><div class="prog-done" style="width:'+pct+'%"></div></div><div class="prog-meta">'+metaText+'</div>';var lh='';for(var i=0;i<tasks.length;i++)lh+=renderTaskCard(tasks[i],i);document.getElementById('task-list').innerHTML=lh;}function renderTaskCard(t,idx){var isOpen=expandedTask===t.id,isDone=t.status==='completed',isActive=t.status==='active',isLocked=t.status==='locked';var numEl=isDone?'<div class="task-num done-n">&#9989;</div>':isActive?'<div class="task-num active-n">'+(idx+1)+'</div>':'<div class="task-num locked-n">&#128274;</div>';var tagClass={1:'tag-gr',2:'tag-yl',3:'tag-rd'}[t.level]||'tag-bl';var stBadge=isDone?'<span class="status-badge sb-done">&#9989; Выполнено</span>':isActive?'<span class="status-badge sb-active">&#128308; Открыто — иди в Extella</span>':'<span class="status-badge sb-locked">&#128274; Откроется после предыдущей</span>';var arrowH=(!isLocked&&!isOpen)?'<span style="font-size:10px;color:var(--ac)">&#9660; открыть инструкцию</span>':(isOpen?'<span style="font-size:10px;color:var(--ac)">&#9650; свернуть</span>':'');var cc='task-card'+(isDone?' completed':'')+(isActive?' active-task':'')+(isLocked?' locked':'')+(isOpen?' expanded':'');var html='<div class="'+cc+'" id="task-'+t.id+'">';html+='<div class="task-header'+((!isLocked)?' clickable':'')+'"'+((!isLocked)?(' onclick="toggleTask(\''+t.id+'\')"'):'')+'>';html+=numEl+'<div style="flex:1"><div class="task-title">'+t.title+'</div><div class="task-desc">'+t.problem+'</div><div class="task-meta-row"><span class="tag '+tagClass+'">'+t.levelLbl+'</span>'+stBadge+arrowH+'</div></div>';html+='<div class="task-right"><div class="task-save">'+t.saves+'</div><div class="task-save-l">экономия</div></div></div>';if(isOpen)html+=renderDetail(t);html+='</div>';return html;}function renderDetail(t){var isDone=t.status==='completed';var html='<div class="task-detail">';html+='<div class="detail-block"><div class="detail-block-title">&#128308; Текущая проблема</div><p>'+t.problem+'</p></div>';html+='<div class="detail-block" style="border-color:rgba(34,211,163,.2);background:rgba(34,211,163,.04)"><div class="detail-block-title" style="color:var(--gr)">&#9989; Что получишь</div><p><strong>'+t.result+'</strong></p><p style="margin-top:6px;font-size:12px">&#128193; <code style="background:var(--bg2);padding:2px 7px;border-radius:5px;font-size:11px">'+t.result_files+'</code></p></div>';html+='<div class="extella-box"><div class="extella-box-header"><div class="extella-logo">&#9889;</div><div><div class="extella-box-title">Как выполнить в Extella Desktop</div><div class="extella-box-sub">Скопируй и вставь в чат Extella</div></div></div>';if(t.expert)html+='<div class="expert-badge">&#129302; '+t.expert+'</div>';html+='<div class="how-steps"><div class="how-step"><div class="how-sn">1</div>Открой Extella</div><div class="how-step"><div class="how-sn">2</div>Новый чат</div><div class="how-step"><div class="how-sn">3</div>Скопируй текст</div><div class="how-step"><div class="how-sn">4</div>Extella выполнит</div></div>';html+='<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--mt);margin-bottom:8px">&#128203; Что написать:</div>';html+='<div class="command-text" id="cmd-'+t.id+'">'+t.extella_say.replace(/\n/g,'<br>')+'</div>';html+='<button class="copy-btn" id="cpbtn-'+t.id+'" onclick="copyCmd(\''+t.id+'\',this)">&#128203; Скопировать</button></div>';if(!isDone){html+='<div class="action-row" style="margin-top:16px"><button class="bxt" onclick="markDone(\''+t.id+'\')">&#10003; Выполнил в Extella</button></div>';}else{html+='<div class="done-banner">&#127881; Готово! Следующая задача открыта.</div>';}html+='</div>';return html;}function toggleTask(id){expandedTask=expandedTask===id?null:id;renderRoadmap();if(expandedTask){setTimeout(function(){var el=document.getElementById('task-'+id);if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'});},60);}}function copyCmd(taskId,btn){var t=null;for(var i=0;i<tasks.length;i++)if(tasks[i].id===taskId){t=tasks[i];break;}if(!t)return;var done=function(){btn.innerHTML='&#10003; Скопировано!';btn.classList.add('ok');setTimeout(function(){btn.innerHTML='&#128203; Скопировать';btn.classList.remove('ok');},2500);};if(navigator.clipboard){navigator.clipboard.writeText(t.extella_say).then(done).catch(function(){fallbackCopy(t.extella_say);done();});}else{fallbackCopy(t.extella_say);done();}}function fallbackCopy(text){var ta=document.createElement('textarea');ta.value=text;ta.style.cssText='position:fixed;opacity:0';document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);}function markDone(taskId){tasks=loadTasks();var idx=-1;for(var i=0;i<tasks.length;i++)if(tasks[i].id===taskId){idx=i;break;}if(idx<0)return;tasks[idx].status='completed';tasks[idx].completedAt=new Date().toISOString();if(idx+1<tasks.length)tasks[idx+1].status='active';saveTasks(tasks);expandedTask=null;renderRoadmap();apiPost('/api/tasks/'+taskId+'/complete',{result_summary:'Выполнено: '+tasks[idx].title,time_saved_minutes:60,roi_realized:0});toast('&#127881; Задача выполнена! Следующая открыта.');}function renderDone(){tasks=loadTasks();var done=[];for(var i=0;i<tasks.length;i++)if(tasks[i].status==='completed')done.push(tasks[i]);if(!done.length){document.getElementById('done-list').innerHTML='<div class="em"><div class="ei">&#128200;</div><p>Ещё ничего не выполнено.<br>Открой <strong>Мой роадмап</strong> и запусти задачу в <strong>Extella Desktop</strong></p></div>';return;}var html='';for(var i=0;i<done.length;i++){var t=done[i];html+='<div style="display:flex;gap:14px;padding:16px 18px;background:var(--card);border:1px solid rgba(34,211,163,.2);border-radius:14px;margin-bottom:10px"><div style="width:38px;height:38px;background:rgba(34,211,163,.1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">&#9989;</div><div style="flex:1"><div style="font-size:14px;font-weight:700;margin-bottom:4px">'+t.title+'</div><div style="font-size:12px;color:var(--t2);margin-bottom:5px">'+t.result+'</div><div style="font-size:11px;font-weight:600;color:var(--gr)">'+t.saves+'</div></div></div>';}document.getElementById('done-list').innerHTML=html;}function loadTeam(){Promise.all([apiGet('/api/dashboard'),apiGet('/api/clients')]).then(function(res){var d=res[0],cl=res[1];if(!d)return;var clients=cl&&cl.clients?cl.clients:[];var COLS=['linear-gradient(135deg,#6378ff,#a855f7)','linear-gradient(135deg,#22d3a3,#0ea5e9)','linear-gradient(135deg,#f59e0b,#ef4444)','linear-gradient(135deg,#8b5cf6,#ec4899)'];var kpis=[{v:d.kpis&&d.kpis.clients||0,l:'Клиентов',cl:'bl'},{v:d.kpis&&d.kpis.agents||0,l:'Агентов',cl:'gr'},{v:'$'+Number(d.kpis&&d.kpis.roi||0).toLocaleString(),l:'ROI',cl:'pu'},{v:d.kpis&&d.kpis.tasks_done||0,l:'Выполнено',cl:'yl'}];var kH='';for(var i=0;i<kpis.length;i++)kH+='<div class="k '+kpis[i].cl+'"><div class="kv">'+kpis[i].v+'</div><div class="kl">'+kpis[i].l+'</div></div>';document.getElementById('team-kpis').innerHTML=kH;var cH='';if(clients.length){for(var i=0;i<clients.length;i++){var c=clients[i],pct=c.progress_pct||(c.tasks_total>0?Math.round(c.tasks_done/c.tasks_total*100):0);cH+='<div style="display:grid;grid-template-columns:26px 1fr 55px 60px;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid var(--b)"><div style="width:24px;height:24px;border-radius:5px;background:'+COLS[i%4]+';display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff">'+c.name.charAt(0)+'</div><div><div style="font-size:12px;font-weight:700">'+c.name+'</div><div class="mbar"><div class="mfil" style="width:'+pct+'%;background:'+(pct>70?'var(--gr)':pct>40?'var(--ac)':'var(--rd)')+'"></div></div></div><div style="font-size:12px;font-weight:700;color:'+(pct>70?'var(--gr)':'var(--yl)')+'">'+pct+'%</div><div style="font-size:12px;font-weight:700;color:var(--gr)">$'+Number(c.roi_realized||0).toLocaleString()+'</div></div>';}}else cH='<div class="em" style="padding:20px"><p>Нет данных</p></div>';document.getElementById('team-clients').innerHTML=cH;var act=d.activity||[],fH='';for(var i=0;i<Math.min(act.length,10);i++){var a=act[i];fH+='<div class="feed-i"><div class="fdot"></div><div><div class="ftxt"><strong>'+(a.client_name||'\u2014')+'</strong> \u00b7 '+(a.employee_name||'\u2014')+': '+(a.title||a.expert_name||'\u2014')+'</div><div class="ftime">'+(a.roi_realized>0?'$'+Number(a.roi_realized).toLocaleString():'')+' \u00b7 Extella</div></div></div>';}document.getElementById('team-feed').innerHTML=fH||'<div class="em" style="padding:20px"><p>Нет активности</p></div>';});}window.onload=function(){loadProfile();if(profile.tasks&&profile.tasks.length>0){tasks=loadTasks();go('s5');initApp();}else if(profile.industry&&profile.roleKey&&profile.selectedProbs&&profile.selectedProbs.length){buildTasks();tasks=loadTasks();go('s5');initApp();}else if(profile.industry&&profile.roleKey){renderRoles();renderProblems();go('s3');}else if(profile.industry){renderRoles();go('s2');}}; 
 </script>
-</body>
-</html>
+</body></html>
